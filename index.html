@@ -11,9 +11,13 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>Renderjson by caldwell</title>
+    <style>
+      .renderjson a { text-decoration: none; }
+    </style>
   </head>
 
   <body>
+    <script type="text/javascript" src="https://raw.github.com/caldwell/renderjson/master/renderjson.js"></script>
     <div id="container">
       <div class="inner">
 
@@ -67,6 +71,33 @@ var example = {
 </code></pre>
 
 <p>This code renders as:</p>
+
+<div id="test">
+<script>
+var example = {
+    "glossary": {
+        "title": "example glossary",
+        "GlossDiv": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": ["GML", "XML"]
+                    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
+};
+    document.getElementById("test").appendChild(renderjson(example));
+</script>
 
 <h2>Usage</h2>
 
