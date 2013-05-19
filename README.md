@@ -12,7 +12,8 @@ Example
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
     document.getElementById("test").appendChild(
-        renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } });
+        renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
+    );
 </script>
 ```
 
