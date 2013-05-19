@@ -29,7 +29,7 @@ element.
 Copyright and License
 ---------------------
 
-Copyright © 2013 David Caldwell <david@porkrind.org>
+Copyright © 2013 David Caldwell \<david@porkrind.org\>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
