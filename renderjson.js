@@ -37,10 +37,10 @@ exports.renderjson = renderjson = (function() {
                                      return s; };
     var A = function A(txt, classname, callback) { var a = document.createElement("a");
                                                    if (classname) a.className = classname;
-                                      a.appendChild(text(txt));
-                                      a.href = '#';
-                                      a.onclick = function() { callback(); return false; };
-                                      return a; };
+                                                   a.appendChild(text(txt));
+                                                   a.href = '#';
+                                                   a.onclick = function() { callback(); return false; };
+                                                   return a; };
 
     function _renderjson(json, indent, dont_indent) {
         var my_indent = dont_indent ? "" : indent;
