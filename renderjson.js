@@ -13,6 +13,8 @@ exports.renderjson = renderjson = (function() {
     function _renderjson(json, indent, dont_indent) {
         var my_indent = dont_indent ? "" : indent;
 
+        if (json === null) return text(my_indent + "null");
+        if (json === void 0) return text(my_indent + "undefined");
         if (typeof(json) != "object") // Strings, numbers and bools
             return text(my_indent + JSON.stringify(json));
 
