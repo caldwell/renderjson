@@ -12,7 +12,17 @@
     <![endif]-->
     <title>Renderjson by caldwell</title>
     <style>
-      .renderjson a { text-decoration: none; }
+      .renderjson a              { text-decoration: none; }
+      .renderjson .disclosure    { color: crimson;
+                                   font-size: 150%; }
+      .renderjson .syntax        { color: grey; }
+      .renderjson .string        { color: red; }
+      .renderjson .number        { color: cyan; }
+      .renderjson .boolean       { color: plum; }
+      .renderjson .key           { color: lightblue; }
+      .renderjson .keyword       { color: lightgoldenrodyellow; }
+      .renderjson .object.syntax { color: lightseagreen; }
+      .renderjson .array.syntax  { color: lightsalmon; }
     </style>
   </head>
 
@@ -36,7 +46,7 @@
         <section id="main_content">
           <h1>renderjson</h1>
 
-<p>Render JSON into collapsible HTML. This library aims to be very simple with no options and no external dependencies. It's aimed at debugging but you can use it wherever it is useful.</p>
+<p>Render JSON into collapsible, themeable HTML. This library aims to be very simple with no options and no external dependencies. It's aimed at debugging but you can use it wherever it is useful.</p>
 
 <h2>Live Example</h2>
 
@@ -114,9 +124,42 @@ var example = {
 &lt;/script&gt;
 </code></pre>
 
+
+<p>And this is the CSS:</p>
+
+<pre><code>.renderjson a              { text-decoration: none; }
+.renderjson .disclosure    { color: crimson;
+                             font-size: 150%; }
+.renderjson .syntax        { color: grey; }
+.renderjson .string        { color: red; }
+.renderjson .number        { color: cyan; }
+.renderjson .boolean       { color: plum; }
+.renderjson .key           { color: lightblue; }
+.renderjson .keyword       { color: lightgoldenrodyellow; }
+.renderjson .object.syntax { color: lightseagreen; }
+.renderjson .array.syntax  { color: lightsalmon; }
+</code></pre>
+
+
 <h2>Usage</h2>
 
 <p>The module exports one entry point, the <code>renderjson()</code> function. It takes in the JSON you want to render as a single argument and returns an HTML element.</p>
+
+<h2>Theming</h2>
+
+<p>The HTML output uses a number of classes so that you can theme it the way
+you'd like:</p>
+
+<pre><code>.disclosure    ("⊕", "⊖")
+.syntax        (",", ":", "{", "}", "[", "]")
+.string        (includes quotes)
+.number
+.boolean
+.key           (object key)
+.keyword       ("null", "undefined")
+.object.syntax ("{", "}")
+.array.syntax  ("[", "]")
+</code></pre>
 
 <h2>Copyright and License</h2>
 
