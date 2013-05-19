@@ -26,6 +26,23 @@ The module exports one entry point, the `renderjson()` function. It takes in
 the JSON you want to render as a single argument and returns an HTML
 element.
 
+Theming
+-------
+
+The HTML output uses a number of classes so that you can theme it the way
+you'd like:
+
+    .disclosure    ("⊕", "⊖")
+    .syntax        (",", ":", "{", "}", "[", "]")
+    .string        (includes quotes)
+    .number
+    .boolean
+    .key           (object key)
+    .keyword       ("null", "undefined")
+    .object.syntax ("{", "}")
+    .array.syntax  ("[", "]")
+
+
 Copyright and License
 ---------------------
 
