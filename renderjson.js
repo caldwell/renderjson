@@ -70,12 +70,17 @@ exports.renderjson = renderjson = (function() {
         // object
         var os = span();
         os.appendChild(text("{\n"));
+        var empty = true;
         for (var k in json) {
+            empty = false;
             os.appendChild(text(indent+"    "+'"'+k+'": '));
             os.appendChild(_renderjson(json[k], indent+"    ", true));
             os.appendChild(text(",\n"));
         }
         os.appendChild(text(indent+"}"));
+
+        if (empty)
+            return text(my_indent + "{}");
 
         return disclosure(os, "{", "}");
     }
