@@ -122,8 +122,7 @@ exports.renderjson = renderjson = (function() {
 
     return function renderjson(json)
     {
-        var pre = document.createElement("pre");
-        pre.appendChild(_renderjson(json, ""));
+        var pre = append(document.createElement("pre"), _renderjson(json, ""));
         pre.className = "renderjson";
         return pre;
     }
