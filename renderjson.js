@@ -64,7 +64,7 @@ exports.renderjson = renderjson = (function() {
                    A(" ... ", null, show),
                    themetext(type+ " syntax", close));
 
-            content.firstChild.onclick();
+            content.firstChild.onclick(); // start everything hidden
 
             return append(span(), text(my_indent), content, empty);
         };
