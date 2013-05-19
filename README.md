@@ -6,6 +6,11 @@ simple with no options and no external dependencies. It's aimed at debugging
 but you can use it wherever it is useful.
 
 
+Live Example
+------------
+
+[A live example can be found here](http://caldwell.github.io/renderjson).
+
 Example
 -------
 
