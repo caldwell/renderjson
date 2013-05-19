@@ -38,7 +38,45 @@
 
 <p>Render JSON into collapsible HTML. This library aims to be very simple with no options and no external dependencies. It's aimed at debugging but you can use it wherever it is useful.</p>
 
-<h2>Example</h2>
+<h2>Live Example</h2>
+
+<div id="test">
+<script type="text/javascript" src="renderjson.js"></script>
+<script>
+var example = {
+    "glossary": {
+        "string": "example glossary",
+        "number": 2,
+        "boolean": false,
+        "null field": null,
+        "undefined field": undefined,
+        "empty array": [],
+        "empty object": {},
+        "array": [ 3, 5 ],
+        "object": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": ["GML", "XML"]
+                    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
+};
+    document.getElementById("test").appendChild(renderjson(example));
+</script>
+
+
+<p>Here's the code:</p>
 
 <pre><code>&lt;div id="test"&gt;
 &lt;script type="text/javascript" src="renderjson.js"&gt;&lt;/script&gt;
@@ -75,43 +113,6 @@ var example = {
     document.getElementById("test").appendChild(renderjson(example));
 &lt;/script&gt;
 </code></pre>
-
-<p>This code renders as:</p>
-
-<div id="test">
-<script type="text/javascript" src="renderjson.js"></script>
-<script>
-var example = {
-    "glossary": {
-        "string": "example glossary",
-        "number": 2,
-        "boolean": false,
-        "null field": null,
-        "undefined field": undefined,
-        "empty array": [],
-        "empty object": {},
-        "array": [ 3, 5 ],
-        "object": {
-            "title": "S",
-            "GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-                    "SortAs": "SGML",
-                    "GlossTerm": "Standard Generalized Markup Language",
-                    "Acronym": "SGML",
-                    "Abbrev": "ISO 8879:1986",
-                    "GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-                        "GlossSeeAlso": ["GML", "XML"]
-                    },
-                    "GlossSee": "markup"
-                }
-            }
-        }
-    }
-};
-    document.getElementById("test").appendChild(renderjson(example));
-</script>
 
 <h2>Usage</h2>
 
