@@ -12,6 +12,26 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+// Usage
+// -----
+// The module exports one entry point, the `renderjson()` function. It takes in
+// the JSON you want to render as a single argument and returns an HTML
+// element.
+//
+// Theming
+// -------
+// The HTML output uses a number of classes so that you can theme it the way
+// you'd like:
+//     .disclosure    ("⊕", "⊖")
+//     .syntax        (",", ":", "{", "}", "[", "]")
+//     .string        (includes quotes)
+//     .number
+//     .boolean
+//     .key           (object key)
+//     .keyword       ("null", "undefined")
+//     .object.syntax ("{", "}")
+//     .array.syntax  ("[", "]")
+
 exports = {};
 exports.renderjson = renderjson = (function() {
     var themetext = function(/* [class, text]+ */) {
