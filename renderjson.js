@@ -92,7 +92,7 @@ exports.renderjson = renderjson = (function() {
                    A(" ... ", null, show),
                    themetext(type+ " syntax", close));
 
-            return append(span(), text(my_indent), empty);
+            return append(span(), text(my_indent.slice(0,-1)), empty);
         };
 
         if (json.constructor == Array) {
