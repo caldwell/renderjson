@@ -50,6 +50,8 @@ exports.renderjson = renderjson = (function() {
                 el.appendChild(arguments[a]);
         return el;
     };
+    var isempty = function(obj) { for (var k in obj) if (obj.hasOwnProperty(k)) return false;
+                                  return true; }
     var text = function(txt) { return document.createTextNode(txt) };
     var div = function() { return document.createElement("div") };
     var span = function(classname) { var s = document.createElement("span");
@@ -104,18 +106,14 @@ exports.renderjson = renderjson = (function() {
         }
 
         // object
+        if (isempty(json))
+            return themetext(null, my_indent, "object syntax", "{}");
         var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
-        var empty = true;
-        for (var k in json) {
-            empty = false;
+        for (var k in json)
             append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
                    _renderjson(json[k], indent+"    ", true),
                    themetext("syntax", ",", null, "\n"));
-        }
         append(os, themetext(null, indent, "object syntax", "}"));
-
-        if (empty)
-            return themetext(null, my_indent, "object syntax", "{}");
 
         return disclosure(os, "{", "}", "object");
     }
