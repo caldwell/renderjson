@@ -81,13 +81,13 @@ exports.renderjson = renderjson = (function() {
             var empty = span(type);
             var show = function() { if (!content) append(empty.parentNode,
                                                          content = prepend(builder(),
-                                                                           A("⊖", "disclosure",
+                                                                           A(renderjson.hide, "disclosure",
                                                                              function() { content.style.display="none";
                                                                                           empty.style.display="inline"; } )));
                                     content.style.display="inline";
                                     empty.style.display="none"; };
             append(empty,
-                   A("⊕", "disclosure", show),
+                   A(renderjson.show, "disclosure", show),
                    themetext(type+ " syntax", open),
                    A(" ... ", null, show),
                    themetext(type+ " syntax", close));
@@ -125,10 +125,14 @@ exports.renderjson = renderjson = (function() {
         });
     }
 
-    return function renderjson(json)
+    var renderjson = function renderjson(json)
     {
         var pre = append(document.createElement("pre"), _renderjson(json, ""));
         pre.className = "renderjson";
         return pre;
     }
+    renderjson.set_icons = function(show, hide) { renderjson.show = show;
+                                                  renderjson.hide = hide; };
+    renderjson.set_icons('⊕', '⊖');
+    return renderjson;
 })();
