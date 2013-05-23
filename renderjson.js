@@ -98,31 +98,31 @@ exports.renderjson = renderjson = (function() {
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-          return disclosure("[", "]", "array", function () {
-            var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
-            for (var i=0; i<json.length; i++)
-                append(as,
-                       _renderjson(json[i], indent+"    "),
-                       i != json.length ? themetext("syntax", ",") : [],
-                       text("\n"));
-            append(as, themetext(null, indent, "array syntax", "]"));
-            return as;
-          });
+            return disclosure("[", "]", "array", function () {
+                var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
+                for (var i=0; i<json.length; i++)
+                    append(as,
+                           _renderjson(json[i], indent+"    "),
+                           i != json.length ? themetext("syntax", ",") : [],
+                           text("\n"));
+                append(as, themetext(null, indent, "array syntax", "]"));
+                return as;
+            });
         }
 
         // object
         if (isempty(json))
             return themetext(null, my_indent, "object syntax", "{}");
 
-      return disclosure("{", "}", "object", function () {
-        var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
-        for (var k in json)
-            append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
-                   _renderjson(json[k], indent+"    ", true),
-                   themetext("syntax", ",", null, "\n"));
-        append(os, themetext(null, indent, "object syntax", "}"));
-        return os;
-      });
+        return disclosure("{", "}", "object", function () {
+            var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
+            for (var k in json)
+                append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
+                       _renderjson(json[k], indent+"    ", true),
+                       themetext("syntax", ",", null, "\n"));
+            append(os, themetext(null, indent, "object syntax", "}"));
+            return os;
+        });
     }
 
     return function renderjson(json)
