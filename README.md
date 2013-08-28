@@ -1,15 +1,25 @@
 Renderjson
 ==========
 
-Render JSON into collapsible HTML. This library aims to be very simple with
-no options and no external dependencies. It's aimed at debugging but you can
-use it wherever it is useful.
+Render JSON into collapsible, themeable HTML. This library aims to be very
+simple with no options and no external dependencies. It's aimed at debugging
+but you can use it wherever it is useful.
 
+The code renders the JSON lazily, only building the HTML when the user
+reveals the JSON by clicking the disclosure icons. This makes it extremely
+fast to do the initial render of huge JSON objects, since the only thing
+that renders initially is a single disclosure icon.
+
+
+Live Example
+------------
+
+[A live example can be found here](http://caldwell.github.io/renderjson).
 
 Example
 -------
 
-```
+```html
 <div id="test">
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
@@ -25,6 +35,34 @@ Usage
 The module exports one entry point, the `renderjson()` function. It takes in
 the JSON you want to render as a single argument and returns an HTML
 element.
+
+Options
+-------
+
+There are a couple functions to call to customize the output:
+
+```javascript
+renderjson.set_icons('+', '-');
+```
+
+Call set_icons() to set the disclosure icons to something other than "⊕" and
+"⊖".
+
+```javascript
+renderjson.set_show_by_default(true);
+```
+
+Call set_show_by_default() to show all the JSON by default. This, of course,
+removes the benefit of the lazy rendering, so it may be slow with large JSON
+objects.
+
+These functions are chainable so you may do:
+
+```javascript
+renderjson.set_icons('+', '-')
+          .set_show_by_default(true)
+        ({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
+```
 
 Theming
 -------

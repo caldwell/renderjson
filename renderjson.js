@@ -50,6 +50,12 @@ exports.renderjson = renderjson = (function() {
                 el.appendChild(arguments[a]);
         return el;
     };
+    var prepend = function(el, child) {
+        el.insertBefore(child, el.firstChild);
+        return el;
+    }
+    var isempty = function(obj) { for (var k in obj) if (obj.hasOwnProperty(k)) return false;
+                                  return true; }
     var text = function(txt) { return document.createTextNode(txt) };
     var div = function() { return document.createElement("div") };
     var span = function(classname) { var s = document.createElement("span");
@@ -70,61 +76,70 @@ exports.renderjson = renderjson = (function() {
         if (typeof(json) != "object") // Strings, numbers and bools
             return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
-        var disclosure = function(content, open, close, type) {
-            content.insertBefore(A("⊖", "disclosure",
-                                   function() { content.style.display="none";
-                                                empty.style.display="inline"; } ), content.firstChild);
-
+        var disclosure = function(open, close, type, builder) {
+            var content;
             var empty = span(type);
-            var show = function() { content.style.display="inline";
+            var show = function() { if (!content) append(empty.parentNode,
+                                                         content = prepend(builder(),
+                                                                           A(renderjson.hide, "disclosure",
+                                                                             function() { content.style.display="none";
+                                                                                          empty.style.display="inline"; } )));
+                                    content.style.display="inline";
                                     empty.style.display="none"; };
             append(empty,
-                   A("⊕", "disclosure", show),
+                   A(renderjson.show, "disclosure", show),
                    themetext(type+ " syntax", open),
                    A(" ... ", null, show),
                    themetext(type+ " syntax", close));
 
-            content.firstChild.onclick(); // start everything hidden
-
-            return append(span(), text(my_indent), content, empty);
+            var el = append(span(), text(my_indent.slice(0,-1)), empty);
+            if (renderjson.show_by_default)
+                show();
+            return el;
         };
 
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-            var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
-            for (var i=0; i<json.length; i++)
-                append(as,
-                       _renderjson(json[i], indent+"    "),
-                       i != json.length ? themetext("syntax", ",") : [],
-                       text("\n"));
-            append(as, themetext(null, indent, "array syntax", "]"));
-
-            return disclosure(as, "[", "]", "array");
+            return disclosure("[", "]", "array", function () {
+                var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
+                for (var i=0; i<json.length; i++)
+                    append(as,
+                           _renderjson(json[i], indent+"    "),
+                           i != json.length ? themetext("syntax", ",") : [],
+                           text("\n"));
+                append(as, themetext(null, indent, "array syntax", "]"));
+                return as;
+            });
         }
 
         // object
-        var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
-        var empty = true;
-        for (var k in json) {
-            empty = false;
-            append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
-                   _renderjson(json[k], indent+"    ", true),
-                   themetext("syntax", ",", null, "\n"));
-        }
-        append(os, themetext(null, indent, "object syntax", "}"));
-
-        if (empty)
+        if (isempty(json))
             return themetext(null, my_indent, "object syntax", "{}");
 
-        return disclosure(os, "{", "}", "object");
+        return disclosure("{", "}", "object", function () {
+            var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
+            for (var k in json)
+                append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
+                       _renderjson(json[k], indent+"    ", true),
+                       themetext("syntax", ",", null, "\n"));
+            append(os, themetext(null, indent, "object syntax", "}"));
+            return os;
+        });
     }
 
-    return function renderjson(json)
+    var renderjson = function renderjson(json)
     {
-        var pre = document.createElement("pre");
-        pre.appendChild(_renderjson(json, ""));
+        var pre = append(document.createElement("pre"), _renderjson(json, ""));
         pre.className = "renderjson";
         return pre;
     }
+    renderjson.set_icons = function(show, hide) { renderjson.show = show;
+                                                  renderjson.hide = hide;
+                                                  return renderjson; };
+    renderjson.set_show_by_default = function(show) { renderjson.show_by_default = show;
+                                                      return renderjson; };
+    renderjson.set_icons('⊕', '⊖');
+    renderjson.set_show_by_default(false);
+    return renderjson;
 })();
