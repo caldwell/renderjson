@@ -5,6 +5,11 @@ Render JSON into collapsible, themeable HTML. This library aims to be very
 simple with no options and no external dependencies. It's aimed at debugging
 but you can use it wherever it is useful.
 
+The code renders the JSON lazily, only building the HTML when the user
+reveals the JSON by clicking the disclosure icons. This makes it extremely
+fast to do the initial render of huge JSON objects, since the only thing
+that renders initially is a single disclosure icon.
+
 
 Live Example
 ------------
