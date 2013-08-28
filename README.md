@@ -36,6 +36,34 @@ The module exports one entry point, the `renderjson()` function. It takes in
 the JSON you want to render as a single argument and returns an HTML
 element.
 
+Options
+-------
+
+There are a couple functions to call to customize the output:
+
+```javascript
+renderjson.set_icons('+', '-');
+```
+
+Call set_icons() to set the disclosure icons to something other than "⊕" and
+"⊖".
+
+```javascript
+renderjson.set_show_by_default(true);
+```
+
+Call set_show_by_default() to show all the JSON by default. This, of course,
+removes the benefit of the lazy rendering, so it may be slow with large JSON
+objects.
+
+These functions are chainable so you may do:
+
+```javascript
+renderjson.set_icons('+', '-')
+          .set_show_by_default(true)
+        ({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
+```
+
 Theming
 -------
 
