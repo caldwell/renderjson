@@ -19,7 +19,7 @@ Live Example
 Example
 -------
 
-```
+```html
 <div id="test">
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
