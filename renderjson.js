@@ -92,7 +92,10 @@ exports.renderjson = renderjson = (function() {
                    A(" ... ", null, show),
                    themetext(type+ " syntax", close));
 
-            return append(span(), text(my_indent.slice(0,-1)), empty);
+            var el = append(span(), text(my_indent.slice(0,-1)), empty);
+            if (renderjson.show_by_default)
+                show();
+            return el;
         };
 
         if (json.constructor == Array) {
@@ -134,6 +137,9 @@ exports.renderjson = renderjson = (function() {
     renderjson.set_icons = function(show, hide) { renderjson.show = show;
                                                   renderjson.hide = hide;
                                                   return renderjson; };
+    renderjson.set_show_by_default = function(show) { renderjson.show_by_default = show;
+                                                      return renderjson; };
     renderjson.set_icons('⊕', '⊖');
+    renderjson.set_show_by_default(false);
     return renderjson;
 })();
