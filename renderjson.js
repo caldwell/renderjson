@@ -132,7 +132,8 @@ exports.renderjson = renderjson = (function() {
         return pre;
     }
     renderjson.set_icons = function(show, hide) { renderjson.show = show;
-                                                  renderjson.hide = hide; };
+                                                  renderjson.hide = hide;
+                                                  return renderjson; };
     renderjson.set_icons('⊕', '⊖');
     return renderjson;
 })();
