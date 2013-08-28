@@ -11,6 +11,19 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>Renderjson by caldwell</title>
+    <style>
+      .renderjson a              { text-decoration: none; }
+      .renderjson .disclosure    { color: crimson;
+                                   font-size: 150%; }
+      .renderjson .syntax        { color: grey; }
+      .renderjson .string        { color: red; }
+      .renderjson .number        { color: cyan; }
+      .renderjson .boolean       { color: plum; }
+      .renderjson .key           { color: lightblue; }
+      .renderjson .keyword       { color: lightgoldenrodyellow; }
+      .renderjson .object.syntax { color: lightseagreen; }
+      .renderjson .array.syntax  { color: lightsalmon; }
+    </style>
   </head>
 
   <body>
@@ -46,7 +59,40 @@ that renders initially is a single disclosure icon.</p>
 <h2>
 <a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Live Example</h2>
 
-<p><a href="http://caldwell.github.io/renderjson">A live example can be found here</a>.</p>
+<div id="test">
+<script type="text/javascript" src="renderjson.js"></script>
+<script>
+var example = {
+    "glossary": {
+        "string": "example glossary",
+        "number": 2,
+        "boolean": false,
+        "null field": null,
+        "undefined field": undefined,
+        "empty array": [],
+        "empty object": {},
+        "array": [ 3, 5 ],
+        "object": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": ["GML", "XML"]
+                    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
+};
+document.getElementById("test").appendChild(renderjson(example));
+</script>
 
 <p>Here's the code:</p>
 
