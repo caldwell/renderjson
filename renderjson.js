@@ -106,7 +106,7 @@ exports.renderjson = renderjson = (function() {
                 for (var i=0; i<json.length; i++)
                     append(as,
                            _renderjson(json[i], indent+"    "),
-                           i != json.length ? themetext("syntax", ",") : [],
+                           i != json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
                 return as;
