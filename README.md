@@ -49,18 +49,20 @@ Call set_icons() to set the disclosure icons to something other than "⊕" and
 "⊖".
 
 ```javascript
-renderjson.set_show_by_default(true);
+renderjson.set_show_to_level(level);
 ```
 
-Call set_show_by_default() to show all the JSON by default. This, of course,
-removes the benefit of the lazy rendering, so it may be slow with large JSON
-objects.
+Call set_show_to_level() to show different amounts of the JSON by
+default. The default is `0`, and `1` is a popular choice. As a special case,
+if `level` is the string `"all"` then all the JSON will be shown by
+default. This, of course, removes the benefit of the lazy rendering, so it
+may be slow with large JSON objects.
 
 These functions are chainable so you may do:
 
 ```javascript
 renderjson.set_icons('+', '-')
-          .set_show_by_default(true)
+          .set_show_to_level(2)
         ({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
 ```
 
