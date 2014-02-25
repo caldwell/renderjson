@@ -1,4 +1,4 @@
-// Copyright © 2013 David Caldwell <david@porkrind.org>
+// Copyright © 2013-2014 David Caldwell <david@porkrind.org>
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
@@ -17,6 +17,16 @@
 // The module exports one entry point, the `renderjson()` function. It takes in
 // the JSON you want to render as a single argument and returns an HTML
 // element.
+//
+// Options
+// -------
+// renderjson.set_icons("+", "-")
+//   This Allows you to override the disclosure icons.
+//
+// renderjson.set_show_to_level(level)
+//   Pass the number of levels to expand when rendering. The default is 0, which
+//   starts with everything collapsed. As a special case, if level is the string
+//   "all" then it will start with everything expanded.
 //
 // Theming
 // -------
@@ -68,7 +78,7 @@ exports.renderjson = renderjson = (function() {
                                                    a.onclick = function() { callback(); return false; };
                                                    return a; };
 
-    function _renderjson(json, indent, dont_indent) {
+    function _renderjson(json, indent, dont_indent, show_level) {
         var my_indent = dont_indent ? "" : indent;
 
         if (json === null) return themetext(null, my_indent, "keyword", "null");
@@ -93,7 +103,7 @@ exports.renderjson = renderjson = (function() {
                    themetext(type+ " syntax", close));
 
             var el = append(span(), text(my_indent.slice(0,-1)), empty);
-            if (renderjson.show_by_default)
+            if (show_level > 0)
                 show();
             return el;
         };
@@ -105,7 +115,7 @@ exports.renderjson = renderjson = (function() {
                 var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
-                           _renderjson(json[i], indent+"    "),
+                           _renderjson(json[i], indent+"    ", false, show_level-1),
                            i != json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
@@ -122,7 +132,7 @@ exports.renderjson = renderjson = (function() {
             for (var k in json) var last = k;
             for (var k in json)
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
-                       _renderjson(json[k], indent+"    ", true),
+                       _renderjson(json[k], indent+"    ", true, show_level-1),
                        k != last ? themetext("syntax", ",") : [],
                        text("\n"));
             append(os, themetext(null, indent, "object syntax", "}"));
@@ -132,14 +142,19 @@ exports.renderjson = renderjson = (function() {
 
     var renderjson = function renderjson(json)
     {
-        var pre = append(document.createElement("pre"), _renderjson(json, ""));
+        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level));
         pre.className = "renderjson";
         return pre;
     }
     renderjson.set_icons = function(show, hide) { renderjson.show = show;
                                                   renderjson.hide = hide;
                                                   return renderjson; };
-    renderjson.set_show_by_default = function(show) { renderjson.show_by_default = show;
+    renderjson.set_show_to_level = function(level) { renderjson.show_to_level = typeof level == "string" &&
+                                                                                level.toLowerCase() === "all" ? Number.MAX_VALUE
+                                                                                                              : level;
+                                                      return renderjson; };
+    // Backwards compatiblity. Use set_show_to_level() for new code.
+    renderjson.set_show_by_default = function(show) { renderjson.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
     renderjson.set_icons('⊕', '⊖');
     renderjson.set_show_by_default(false);

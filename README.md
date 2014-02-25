@@ -2,7 +2,7 @@ Renderjson
 ==========
 
 Render JSON into collapsible, themeable HTML. This library aims to be very
-simple with no options and no external dependencies. It's aimed at debugging
+simple with few options and no external dependencies. It's aimed at debugging
 but you can use it wherever it is useful.
 
 The code renders the JSON lazily, only building the HTML when the user
@@ -45,22 +45,24 @@ There are a couple functions to call to customize the output:
 renderjson.set_icons('+', '-');
 ```
 
-Call set_icons() to set the disclosure icons to something other than "⊕" and
+Call `set_icons()` to set the disclosure icons to something other than "⊕" and
 "⊖".
 
 ```javascript
-renderjson.set_show_by_default(true);
+renderjson.set_show_to_level(level);
 ```
 
-Call set_show_by_default() to show all the JSON by default. This, of course,
-removes the benefit of the lazy rendering, so it may be slow with large JSON
-objects.
+Call `set_show_to_level()` to show different amounts of the JSON by
+default. The default is `0`, and `1` is a popular choice. As a special case,
+if `level` is the string `"all"` then all the JSON will be shown by
+default. This, of course, removes the benefit of the lazy rendering, so it
+may be slow with large JSON objects.
 
 These functions are chainable so you may do:
 
 ```javascript
 renderjson.set_icons('+', '-')
-          .set_show_by_default(true)
+          .set_show_to_level(2)
         ({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
 ```
 
@@ -84,7 +86,7 @@ you'd like:
 Copyright and License
 ---------------------
 
-Copyright © 2013 David Caldwell \<david@porkrind.org\>
+Copyright © 2013-2014 David Caldwell \<david@porkrind.org\>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
