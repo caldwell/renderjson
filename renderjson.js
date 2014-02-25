@@ -18,6 +18,11 @@
 // the JSON you want to render as a single argument and returns an HTML
 // element.
 //
+// Options
+// -------
+// renderjson.set_icons("+", "-")
+//   This Allows you to override the disclosure icons.
+//
 // Theming
 // -------
 // The HTML output uses a number of classes so that you can theme it the way
