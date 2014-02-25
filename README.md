@@ -45,14 +45,14 @@ There are a couple functions to call to customize the output:
 renderjson.set_icons('+', '-');
 ```
 
-Call set_icons() to set the disclosure icons to something other than "⊕" and
+Call `set_icons()` to set the disclosure icons to something other than "⊕" and
 "⊖".
 
 ```javascript
 renderjson.set_show_to_level(level);
 ```
 
-Call set_show_to_level() to show different amounts of the JSON by
+Call `set_show_to_level()` to show different amounts of the JSON by
 default. The default is `0`, and `1` is a popular choice. As a special case,
 if `level` is the string `"all"` then all the JSON will be shown by
 default. This, of course, removes the benefit of the lazy rendering, so it
