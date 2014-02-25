@@ -2,7 +2,7 @@ Renderjson
 ==========
 
 Render JSON into collapsible, themeable HTML. This library aims to be very
-simple with no options and no external dependencies. It's aimed at debugging
+simple with few options and no external dependencies. It's aimed at debugging
 but you can use it wherever it is useful.
 
 The code renders the JSON lazily, only building the HTML when the user
