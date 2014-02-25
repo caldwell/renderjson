@@ -35,7 +35,7 @@
 <a name="renderjson" class="anchor" href="#renderjson"><span class="octicon octicon-link"></span></a>Renderjson</h1>
 
 <p>Render JSON into collapsible, themeable HTML. This library aims to be very
-simple with no options and no external dependencies. It's aimed at debugging
+simple with few options and no external dependencies. It's aimed at debugging
 but you can use it wherever it is useful.</p>
 
 <p>The code renders the JSON lazily, only building the HTML when the user
@@ -50,7 +50,7 @@ that renders initially is a single disclosure icon.</p>
 
 <p>Here's the code:</p>
 
-<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"test"</span><span class="nt">&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"test"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"renderjson.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
 <span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="p">{</span>
@@ -81,7 +81,7 @@ that renders initially is a single disclosure icon.</p>
 
 <p>And here's the CSS:</p>
 
-<div class="highlight"><pre><span class="nc">.renderjson</span> <span class="nt">a</span>              <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+<div class="highlight highlight-css"><pre><span class="nc">.renderjson</span> <span class="nt">a</span>              <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
 <span class="nc">.renderjson</span> <span class="nc">.disclosure</span>    <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">crimson</span><span class="p">;</span>
                              <span class="k">font-size</span><span class="o">:</span> <span class="m">150</span><span class="o">%</span><span class="p">;</span> <span class="p">}</span>
 <span class="nc">.renderjson</span> <span class="nc">.syntax</span>        <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="n">grey</span><span class="p">;</span> <span class="p">}</span>
@@ -106,23 +106,25 @@ element.</p>
 
 <p>There are a couple functions to call to customize the output:</p>
 
-<div class="highlight"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">);</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">);</span>
 </pre></div>
 
-<p>Call set_icons() to set the disclosure icons to something other than "⊕" and
+<p>Call <code>set_icons()</code> to set the disclosure icons to something other than "⊕" and
 "⊖".</p>
 
-<div class="highlight"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_show_by_default</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_show_to_level</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
 </pre></div>
 
-<p>Call set_show_by_default() to show all the JSON by default. This, of course,
-removes the benefit of the lazy rendering, so it may be slow with large JSON
-objects.</p>
+<p>Call <code>set_show_to_level()</code> to show different amounts of the JSON by
+default. The default is <code>0</code>, and <code>1</code> is a popular choice. As a special case,
+if <code>level</code> is the string <code>"all"</code> then all the JSON will be shown by
+default. This, of course, removes the benefit of the lazy rendering, so it
+may be slow with large JSON objects.</p>
 
 <p>These functions are chainable so you may do:</p>
 
-<div class="highlight"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">)</span>
-          <span class="p">.</span><span class="nx">set_show_by_default</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">set_show_to_level</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="p">({</span> <span class="nx">hello</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="nx">there</span><span class="o">:</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">,</span> <span class="kc">null</span><span class="p">]</span> <span class="p">}</span> <span class="p">})</span>
 </pre></div>
 
@@ -146,7 +148,7 @@ you'd like:</p>
 <h2>
 <a name="copyright-and-license" class="anchor" href="#copyright-and-license"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
 
-<p>Copyright © 2013 David Caldwell &lt;<a href="mailto:david@porkrind.org">david@porkrind.org</a>&gt;</p>
+<p>Copyright © 2013-2014 David Caldwell &lt;<a href="mailto:david@porkrind.org">david@porkrind.org</a>&gt;</p>
 
 <p>Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
