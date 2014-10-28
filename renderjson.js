@@ -28,6 +28,9 @@
 //   starts with everything collapsed. As a special case, if level is the string
 //   "all" then it will start with everything expanded.
 //
+// renderjson.set_sort_objects(sort_bool)
+//   Sort objects by key (default: false)
+//
 // Theming
 // -------
 // The HTML output uses a number of classes so that you can theme it the way
@@ -78,7 +81,7 @@ var module;
                                                    a.onclick = function() { callback(); return false; };
                                                    return a; };
 
-    function _renderjson(json, indent, dont_indent, show_level) {
+    function _renderjson(json, indent, dont_indent, show_level, sort_objects) {
         var my_indent = dont_indent ? "" : indent;
 
         if (json === null) return themetext(null, my_indent, "keyword", "null");
@@ -115,7 +118,7 @@ var module;
                 var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
-                           _renderjson(json[i], indent+"    ", false, show_level-1),
+                           _renderjson(json[i], indent+"    ", false, show_level-1, sort_objects),
                            i != json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
@@ -130,11 +133,16 @@ var module;
         return disclosure("{", "}", "object", function () {
             var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
             for (var k in json) var last = k;
-            for (var k in json)
+            var keys = Object.keys(json);
+            if (sort_objects)
+                keys = keys.sort();
+            for (var i in keys) {
+                var k = keys[i];
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
-                       _renderjson(json[k], indent+"    ", true, show_level-1),
+                       _renderjson(json[k], indent+"    ", true, show_level-1, sort_objects),
                        k != last ? themetext("syntax", ",") : [],
                        text("\n"));
+            }
             append(os, themetext(null, indent, "object syntax", "}"));
             return os;
         });
@@ -142,7 +150,7 @@ var module;
 
     var renderjson = function renderjson(json)
     {
-        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level));
+        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level, renderjson.sort_objects));
         pre.className = "renderjson";
         return pre;
     }
@@ -153,10 +161,13 @@ var module;
                                                                                 level.toLowerCase() === "all" ? Number.MAX_VALUE
                                                                                                               : level;
                                                       return renderjson; };
+    renderjson.set_sort_objects = function(sort_bool) { renderjson.sort_objects = sort_bool;
+                                                   return renderjson; };
     // Backwards compatiblity. Use set_show_to_level() for new code.
     renderjson.set_show_by_default = function(show) { renderjson.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
     renderjson.set_icons('⊕', '⊖');
     renderjson.set_show_by_default(false);
+    renderjson.set_sort_objects(false);
     return renderjson;
 })();
