@@ -11,22 +11,58 @@ fast to do the initial render of huge JSON objects, since the only thing
 that renders initially is a single disclosure icon.
 
 
+
 Live Example
 ------------
 
 [A live example can be found here](http://caldwell.github.io/renderjson).
 
-Example
--------
+Here's the code:
 
 ```html
 <div id="test">
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
-    document.getElementById("test").appendChild(
-        renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
-    );
+var example = {
+    "glossary": {
+        "title": "example glossary",
+        "GlossDiv": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": ["GML", "XML"]
+                    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
+};
+    document.getElementById("test").appendChild(renderjson(example));
 </script>
+```
+
+And here's the CSS:
+
+```css
+.renderjson a              { text-decoration: none; }
+.renderjson .disclosure    { color: crimson;
+                             font-size: 150%; }
+.renderjson .syntax        { color: grey; }
+.renderjson .string        { color: red; }
+.renderjson .number        { color: cyan; }
+.renderjson .boolean       { color: plum; }
+.renderjson .key           { color: lightblue; }
+.renderjson .keyword       { color: lightgoldenrodyellow; }
+.renderjson .object.syntax { color: lightseagreen; }
+.renderjson .array.syntax  { color: lightsalmon; }
 ```
 
 Usage
