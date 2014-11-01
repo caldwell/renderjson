@@ -94,6 +94,12 @@ if `level` is the string `"all"` then all the JSON will be shown by
 default. This, of course, removes the benefit of the lazy rendering, so it
 may be slow with large JSON objects.
 
+```javascript
+renderjson.set_sort_objects(sort_bool);
+```
+
+Sort objects by key (default: false)
+
 These functions are chainable so you may do:
 
 ```javascript
