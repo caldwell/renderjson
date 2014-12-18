@@ -59,6 +59,14 @@ default. This, of course, removes the benefit of the lazy rendering, so it
 may be slow with large JSON objects.
 
 ```javascript
+renderjson.set_expandable_string_length(length);
+```
+
+String values will become expandable if they are longer than passed length.
+As a special case, if length is the string `"none"` then no string will
+become expandable. The default is `"none"`.
+
+```javascript
 renderjson.set_sort_objects(sort_bool);
 ```
 
