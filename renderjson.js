@@ -28,6 +28,11 @@
 //   starts with everything collapsed. As a special case, if level is the string
 //   "all" then it will start with everything expanded.
 //
+// renderjson.set_expandable_string_length(length)
+//   String values will become expandable if they are longer than passed length.
+//   The default is 100. As a special case, if length is the string "none" then no
+//   string will become expandable.
+//
 // renderjson.set_sort_objects(sort_bool)
 //   Sort objects by key (default: false)
 //
@@ -81,13 +86,8 @@ var module;
                                                    a.onclick = function() { callback(); return false; };
                                                    return a; };
 
-    function _renderjson(json, indent, dont_indent, show_level, sort_objects) {
+    function _renderjson(json, indent, dont_indent, show_level, expandable_length, sort_objects) {
         var my_indent = dont_indent ? "" : indent;
-
-        if (json === null) return themetext(null, my_indent, "keyword", "null");
-        if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
-        if (typeof(json) != "object") // Strings, numbers and bools
-            return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
         var disclosure = function(open, close, type, builder) {
             var content;
@@ -111,6 +111,19 @@ var module;
             return el;
         };
 
+        if (json === null) return themetext(null, my_indent, "keyword", "null");
+        if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
+        // Strings, numbers and bools.
+        if (typeof(json) != "object") {
+            var value = JSON.stringify(json);
+            if (value.charAt(0) != '"' || value.length <= expandable_length)
+                return themetext(null, my_indent, typeof(json), value);
+
+            return disclosure('"', '"', "string", function () {
+                return append(span("string"), themetext(null, my_indent, "string", value));
+            });
+        }
+
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
@@ -118,7 +131,7 @@ var module;
                 var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
-                           _renderjson(json[i], indent+"    ", false, show_level-1, sort_objects),
+                           _renderjson(json[i], indent+"    ", false, show_level-1, expandable_length, sort_objects),
                            i != json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
@@ -139,7 +152,7 @@ var module;
             for (var i in keys) {
                 var k = keys[i];
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
-                       _renderjson(json[k], indent+"    ", true, show_level-1, sort_objects),
+                       _renderjson(json[k], indent+"    ", true, show_level-1, expandable_length, sort_objects),
                        k != last ? themetext("syntax", ",") : [],
                        text("\n"));
             }
@@ -150,10 +163,12 @@ var module;
 
     var renderjson = function renderjson(json)
     {
-        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level, renderjson.sort_objects));
+        var pre = append(document.createElement("pre"), _renderjson(json, "", false, renderjson.show_to_level, renderjson.expandable_string_length, renderjson.sort_objects));
         pre.className = "renderjson";
         return pre;
-    }
+    };
+    // 100 characters is the default expandable string length.
+    renderjson.expandable_string_length = 100;
     renderjson.set_icons = function(show, hide) { renderjson.show = show;
                                                   renderjson.hide = hide;
                                                   return renderjson; };
@@ -161,6 +176,9 @@ var module;
                                                                                 level.toLowerCase() === "all" ? Number.MAX_VALUE
                                                                                                               : level;
                                                      return renderjson; };
+    renderjson.set_expandable_string_length = function(length) { renderjson.expandable_string_length = typeof length == "string" &&
+                                                                 length.toLowerCase() === "none" ? Number.MAX_VALUE : length;
+                                                                 return renderjson; };
     renderjson.set_sort_objects = function(sort_bool) { renderjson.sort_objects = sort_bool;
                                                         return renderjson; };
     // Backwards compatiblity. Use set_show_to_level() for new code.
