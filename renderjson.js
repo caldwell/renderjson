@@ -114,16 +114,13 @@ var module;
         if (json === null) return themetext(null, my_indent, "keyword", "null");
         if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
-        // Strings, numbers and bools.
-        if (typeof(json) != "object") {
-            var value = JSON.stringify(json);
-            if (typeof(json) != "string" || value.length <= expandable_length)
-                return themetext(null, my_indent, typeof(json), value);
-
+        if (typeof(json) == "string" && json.length > expandable_length)
             return disclosure('"', '"', "string", function () {
-                return append(span("string"), themetext(null, my_indent, "string", value));
+                return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
-        }
+
+        if (typeof(json) != "object") // Strings, numbers and bools
+            return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
