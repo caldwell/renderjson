@@ -29,9 +29,9 @@
 //   "all" then it will start with everything expanded.
 //
 // renderjson.set_expandable_string_length(length)
-//   String values will become expandable if they are longer than passed
-//   length. As a special case, if length is the string "none" then no
-//   string will become expandable. The default is "none".
+//   Strings will be truncated and made expandable if they are longer than
+//   `length`. As a special case, if `length` is the string "none" then
+//   there will be no truncation. The default is "none".
 //
 // renderjson.set_sort_objects(sort_bool)
 //   Sort objects by key (default: false)
@@ -89,7 +89,7 @@ var module;
     function _renderjson(json, indent, dont_indent, show_level, expandable_length, sort_objects) {
         var my_indent = dont_indent ? "" : indent;
 
-        var disclosure = function(open, close, type, builder) {
+        var disclosure = function(open, placeholder, close, type, builder) {
             var content;
             var empty = span(type);
             var show = function() { if (!content) append(empty.parentNode,
@@ -102,7 +102,7 @@ var module;
             append(empty,
                    A(renderjson.show, "disclosure", show),
                    themetext(type+ " syntax", open),
-                   A(" ... ", null, show),
+                   A(placeholder, null, show),
                    themetext(type+ " syntax", close));
 
             var el = append(span(), text(my_indent.slice(0,-1)), empty);
@@ -115,7 +115,7 @@ var module;
         if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
         if (typeof(json) == "string" && json.length > expandable_length)
-            return disclosure('"', '"', "string", function () {
+            return disclosure('"', json.substr(0,expandable_length)+" ...", '"', "string", function () {
                 return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
 
@@ -125,7 +125,7 @@ var module;
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-            return disclosure("[", "]", "array", function () {
+            return disclosure("[", " ... ", "]", "array", function () {
                 var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
@@ -141,7 +141,7 @@ var module;
         if (isempty(json))
             return themetext(null, my_indent, "object syntax", "{}");
 
-        return disclosure("{", "}", "object", function () {
+        return disclosure("{", " ... ", "}", "object", function () {
             var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
             for (var k in json) var last = k;
             var keys = Object.keys(json);
