@@ -59,7 +59,7 @@ default. This, of course, removes the benefit of the lazy rendering, so it
 may be slow with large JSON objects.
 
 ```javascript
-renderjson.set_expandable_string_length(length);
+renderjson.set_max_string_length(length);
 ```
 
 Strings will be truncated and made expandable if they are longer than
