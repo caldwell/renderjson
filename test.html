@@ -28,6 +28,7 @@ document.getElementById("dest").appendChild(
             //.set_show_to_level(2)
             //.set_sort_objects(true)
             //.set_icons('+', '-')
+              .set_max_string_length(100)
     ([
 // Examples from http://json.org/example.html
 {
@@ -210,7 +211,9 @@ document.getElementById("dest").appendChild(
 {"empty": {
     "object": {},
     "array": []
-}}
+}},
+{"really_long": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla posuere, orci quis laoreet luctus, nunc neque condimentum arcu, sed tristique sem erat non libero. Morbi et velit non justo rutrum pulvinar. Nam pellentesque laoreet lacus eget sollicitudin. Quisque maximus mattis nisl, eget tempor nisi pulvinar et. Nullam accumsan sapien sapien, non gravida turpis consectetur non. Etiam in vestibulum neque. Donec porta dui sit amet turpis efficitur laoreet. Duis eu convallis ex, vel volutpat lacus. Donec sit amet nunc a orci fermentum luctus."
+}
 ]));
     </script>
   </body>

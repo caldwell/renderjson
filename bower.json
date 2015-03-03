@@ -1,7 +1,7 @@
 {
   "name": "renderjson",
   "main": "renderjson.js",
-  "version": "1.0",
+  "version": "1.1",
   "homepage": "https://caldwell.github.io/renderjson/",
   "authors": [
     "David Caldwell <david@porkrind.org>"
