@@ -51,7 +51,7 @@
 
         <section id="main_content">
           <h1>
-<a name="renderjson" class="anchor" href="#renderjson"><span class="octicon octicon-link"></span></a>Renderjson</h1>
+<a id="renderjson" class="anchor" href="#renderjson" aria-hidden="true"><span class="octicon octicon-link"></span></a>Renderjson</h1>
 
 <p>Render JSON into collapsible, themeable HTML. This library aims to be very
 simple with few options and no external dependencies. It's aimed at debugging
@@ -63,7 +63,7 @@ fast to do the initial render of huge JSON objects, since the only thing
 that renders initially is a single disclosure icon.</p>
 
 <h2>
-<a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Live Example</h2>
+<a id="live-example" class="anchor" href="#live-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Live Example</h2>
 
 <div id="test">
 <script type="text/javascript" src="renderjson.js"></script>
@@ -102,70 +102,66 @@ document.getElementById("test").appendChild(renderjson(example));
 
 <p>Here's the code:</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"test"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"renderjson.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script&gt;</span>
-<span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"glossary"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"example glossary"</span><span class="p">,</span>
-        <span class="s2">"GlossDiv"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"S"</span><span class="p">,</span>
-            <span class="s2">"GlossList"</span><span class="o">:</span> <span class="p">{</span>
-                <span class="s2">"GlossEntry"</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="s2">"ID"</span><span class="o">:</span> <span class="s2">"SGML"</span><span class="p">,</span>
-                    <span class="s2">"SortAs"</span><span class="o">:</span> <span class="s2">"SGML"</span><span class="p">,</span>
-                    <span class="s2">"GlossTerm"</span><span class="o">:</span> <span class="s2">"Standard Generalized Markup Language"</span><span class="p">,</span>
-                    <span class="s2">"Acronym"</span><span class="o">:</span> <span class="s2">"SGML"</span><span class="p">,</span>
-                    <span class="s2">"Abbrev"</span><span class="o">:</span> <span class="s2">"ISO 8879:1986"</span><span class="p">,</span>
-                    <span class="s2">"GlossDef"</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="s2">"para"</span><span class="o">:</span> <span class="s2">"A meta-markup language, used to create markup languages such as DocBook."</span><span class="p">,</span>
-                        <span class="s2">"GlossSeeAlso"</span><span class="o">:</span> <span class="p">[</span><span class="s2">"GML"</span><span class="p">,</span> <span class="s2">"XML"</span><span class="p">]</span>
-                    <span class="p">},</span>
-                    <span class="s2">"GlossSee"</span><span class="o">:</span> <span class="s2">"markup"</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"test"</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">renderjson</span><span class="p">(</span><span class="nx">example</span><span class="p">));</span>
-<span class="nt">&lt;/script&gt;</span>
-</pre></div>
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s1"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s1"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>renderjson.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-s2">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s2"><span class="pl-s">var</span> example <span class="pl-k">=</span> {</span>
+<span class="pl-s2">    <span class="pl-s1"><span class="pl-pds">"</span>glossary<span class="pl-pds">"</span></span><span class="pl-k">:</span> {</span>
+<span class="pl-s2">        <span class="pl-s1"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>example glossary<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">        <span class="pl-s1"><span class="pl-pds">"</span>GlossDiv<span class="pl-pds">"</span></span><span class="pl-k">:</span> {</span>
+<span class="pl-s2">            <span class="pl-s1"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>S<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">            <span class="pl-s1"><span class="pl-pds">"</span>GlossList<span class="pl-pds">"</span></span><span class="pl-k">:</span> {</span>
+<span class="pl-s2">                <span class="pl-s1"><span class="pl-pds">"</span>GlossEntry<span class="pl-pds">"</span></span><span class="pl-k">:</span> {</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>ID<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>SGML<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>SortAs<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>SGML<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>GlossTerm<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>Standard Generalized Markup Language<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>Acronym<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>SGML<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>Abbrev<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>ISO 8879:1986<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>GlossDef<span class="pl-pds">"</span></span><span class="pl-k">:</span> {</span>
+<span class="pl-s2">                        <span class="pl-s1"><span class="pl-pds">"</span>para<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>A meta-markup language, used to create markup languages such as DocBook.<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s2">                        <span class="pl-s1"><span class="pl-pds">"</span>GlossSeeAlso<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">"</span>GML<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>XML<span class="pl-pds">"</span></span>]</span>
+<span class="pl-s2">                    },</span>
+<span class="pl-s2">                    <span class="pl-s1"><span class="pl-pds">"</span>GlossSee<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>markup<span class="pl-pds">"</span></span></span>
+<span class="pl-s2">                }</span>
+<span class="pl-s2">            }</span>
+<span class="pl-s2">        }</span>
+<span class="pl-s2">    }</span>
+<span class="pl-s2">};</span>
+<span class="pl-s2">    <span class="pl-s3">document</span>.<span class="pl-s3">getElementById</span>(<span class="pl-s1"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span>).<span class="pl-s3">appendChild</span>(renderjson(example));</span>
+<span class="pl-s2">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
 
 <p>And here's the CSS:</p>
 
-<div class="highlight highlight-css"><pre><span class="nc">.renderjson</span> <span class="nt">a</span>              <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.disclosure</span>    <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">crimson</span><span class="p">;</span>
-                             <span class="k">font-size</span><span class="o">:</span> <span class="m">150%</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.syntax</span>        <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="n">grey</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.string</span>        <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.number</span>        <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">cyan</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.boolean</span>       <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">plum</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.key</span>           <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">lightblue</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.keyword</span>       <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">lightgoldenrodyellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.object.syntax</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">lightseagreen</span><span class="p">;</span> <span class="p">}</span>
-<span class="nc">.renderjson</span> <span class="nc">.array.syntax</span>  <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">lightsalmon</span><span class="p">;</span> <span class="p">}</span>
-</pre></div>
+<div class="highlight highlight-css"><pre><span class="pl-e">.renderjson</span> <span class="pl-ent">a</span>              { <span class="pl-mp"><span class="pl-s3">text-decoration</span></span>: <span class="pl-sc">none</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.disclosure</span>    { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">crimson</span>;
+                             <span class="pl-mp"><span class="pl-s3">font-size</span></span>: <span class="pl-c1">150<span class="pl-k">%</span></span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.syntax</span>        { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">grey</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.string</span>        { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-sc">red</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.number</span>        { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">cyan</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.boolean</span>       { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">plum</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.key</span>           { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">lightblue</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.keyword</span>       { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">lightgoldenrodyellow</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.object.syntax</span> { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">lightseagreen</span>; }
+<span class="pl-e">.renderjson</span> <span class="pl-e">.array.syntax</span>  { <span class="pl-mp"><span class="pl-s3">color</span></span>: <span class="pl-id">lightsalmon</span>; }</pre></div>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>The module exports one entry point, the <code>renderjson()</code> function. It takes in
 the JSON you want to render as a single argument and returns an HTML
 element.</p>
 
 <h2>
-<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
 
 <p>There are a couple functions to call to customize the output:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-javascript"><pre>renderjson.set_icons(<span class="pl-s1"><span class="pl-pds">'</span>+<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>-<span class="pl-pds">'</span></span>);</pre></div>
 
 <p>Call <code>set_icons()</code> to set the disclosure icons to something other than "⊕" and
 "⊖".</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_show_to_level</span><span class="p">(</span><span class="nx">level</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-javascript"><pre>renderjson.set_show_to_level(level);</pre></div>
 
 <p>Call <code>set_show_to_level()</code> to show different amounts of the JSON by
 default. The default is <code>0</code>, and <code>1</code> is a popular choice. As a special case,
@@ -173,20 +169,24 @@ if <code>level</code> is the string <code>"all"</code> then all the JSON will be
 default. This, of course, removes the benefit of the lazy rendering, so it
 may be slow with large JSON objects.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_sort_objects</span><span class="p">(</span><span class="nx">sort_bool</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-javascript"><pre>renderjson.set_max_string_length(length);</pre></div>
+
+<p>Strings will be truncated and made expandable if they are longer than
+<code>length</code>. As a special case, if <code>length</code> is the string <code>"none"</code> then there
+will be no truncation. The default is <code>"none"</code>.</p>
+
+<div class="highlight highlight-javascript"><pre>renderjson.set_sort_objects(sort_bool);</pre></div>
 
 <p>Sort objects by key (default: false)</p>
 
 <p>These functions are chainable so you may do:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">renderjson</span><span class="p">.</span><span class="nx">set_icons</span><span class="p">(</span><span class="s1">'+'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">)</span>
-          <span class="p">.</span><span class="nx">set_show_to_level</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="p">({</span> <span class="nx">hello</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="nx">there</span><span class="o">:</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">,</span> <span class="kc">null</span><span class="p">]</span> <span class="p">}</span> <span class="p">})</span>
-</pre></div>
+<div class="highlight highlight-javascript"><pre>renderjson.set_icons(<span class="pl-s1"><span class="pl-pds">'</span>+<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>-<span class="pl-pds">'</span></span>)
+          .set_show_to_level(<span class="pl-c1">2</span>)
+        ({ hello<span class="pl-k">:</span> [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>], there<span class="pl-k">:</span> { a<span class="pl-k">:</span><span class="pl-c1">1</span>, b<span class="pl-k">:</span><span class="pl-c1">2</span>, c<span class="pl-k">:</span>[<span class="pl-s1"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>, <span class="pl-c1">null</span>] } })</pre></div>
 
 <h2>
-<a name="theming" class="anchor" href="#theming"><span class="octicon octicon-link"></span></a>Theming</h2>
+<a id="theming" class="anchor" href="#theming" aria-hidden="true"><span class="octicon octicon-link"></span></a>Theming</h2>
 
 <p>The HTML output uses a number of classes so that you can theme it the way
 you'd like:</p>
@@ -203,7 +203,7 @@ you'd like:</p>
 </code></pre>
 
 <h2>
-<a name="copyright-and-license" class="anchor" href="#copyright-and-license"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
+<a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
 
 <p>Copyright © 2013-2014 David Caldwell &lt;<a href="mailto:david@porkrind.org">david@porkrind.org</a>&gt;</p>
 
