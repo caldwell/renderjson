@@ -26,6 +26,7 @@
 document.getElementById("dest").appendChild(
   renderjson//.set_show_by_default(true)
             //.set_show_to_level(2)
+            //.set_quotes('')
             //.set_sort_objects(true)
             //.set_icons('+', '-')
               .set_max_string_length(100)
@@ -73,7 +74,7 @@ document.getElementById("dest").appendChild(
         "width": 500,
         "height": 500
     },
-    "image": { 
+    "image": {
         "src": "Images/Sun.png",
         "name": "sun1",
         "hOffset": 250,
@@ -93,7 +94,7 @@ document.getElementById("dest").appendChild(
 }},
 
 {"web-app": {
-  "servlet": [   
+  "servlet": [
     {
       "servlet-name": "cofaxCDS",
       "servlet-class": "org.cofax.cds.CDSServlet",
@@ -149,7 +150,7 @@ document.getElementById("dest").appendChild(
     {
       "servlet-name": "cofaxAdmin",
       "servlet-class": "org.cofax.cds.AdminServlet"},
- 
+
     {
       "servlet-name": "fileServlet",
       "servlet-class": "org.cofax.cds.FileServlet"},
@@ -176,7 +177,7 @@ document.getElementById("dest").appendChild(
     "cofaxAdmin": "/admin/*",
     "fileServlet": "/static/*",
     "cofaxTools": "/tools/*"},
- 
+
   "taglib": {
     "taglib-uri": "cofax.tld",
     "taglib-location": "/WEB-INF/tlds/cofax.tld"}}},

@@ -52,6 +52,12 @@ Call `set_icons()` to set the disclosure icons to something other than "⊕" and
 renderjson.set_show_to_level(level);
 ```
 
+Call `set_quotes('-')` to replace all quotes (") around the syntax of the JSON, can be set to an empty string to have them removed entirely.
+
+```javascript
+renderjson.set_quotes('');
+```
+
 Call `set_show_to_level()` to show different amounts of the JSON by
 default. The default is `0`, and `1` is a popular choice. As a special case,
 if `level` is the string `"all"` then all the JSON will be shown by

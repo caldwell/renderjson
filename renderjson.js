@@ -71,7 +71,14 @@ var module;
     var prepend = function(el, child) {
         el.insertBefore(child, el.firstChild);
         return el;
-    }
+    };
+    var formatStringifiedJSON = function(json) {
+        if(json[0] === '"') json = renderjson.quote + json.substring(1);
+        if(json[json.length - 1] === '"') json = json.substring(0, json.length - 1 ) + renderjson.quote;
+        console.log(json);
+        return json;
+
+    };
     var isempty = function(obj) { for (var k in obj) if (obj.hasOwnProperty(k)) return false;
                                   return true; }
     var text = function(txt) { return document.createTextNode(txt) };
@@ -115,12 +122,12 @@ var module;
         if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
         if (typeof(json) == "string" && json.length > max_string)
-            return disclosure('"', json.substr(0,max_string)+" ...", '"', "string", function () {
-                return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
+            return disclosure(renderjson.quote, json.substr(0,max_string)+" ...", renderjson.quote, "string", function () {
+                return append(span("string"), themetext(null, my_indent, "string", formatStringifiedJSON(JSON.stringify(json))));
             });
 
         if (typeof(json) != "object") // Strings, numbers and bools
-            return themetext(null, my_indent, typeof(json), JSON.stringify(json));
+            return themetext(null, my_indent, typeof(json), formatStringifiedJSON(JSON.stringify(json)));
 
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
@@ -149,7 +156,7 @@ var module;
                 keys = keys.sort();
             for (var i in keys) {
                 var k = keys[i];
-                append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
+                append(os, themetext(null, indent+"    ", "key", renderjson.quote+k+renderjson.quote, "object syntax", ': '),
                        _renderjson(json[k], indent+"    ", true, show_level-1, max_string, sort_objects),
                        k != last ? themetext("syntax", ",") : [],
                        text("\n"));
@@ -181,7 +188,10 @@ var module;
     // Backwards compatiblity. Use set_show_to_level() for new code.
     renderjson.set_show_by_default = function(show) { renderjson.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
+    renderjson.set_quotes = function(quote) { renderjson.quote = quote; return renderjson; };
+
     renderjson.set_icons('⊕', '⊖');
+    renderjson.set_quotes('"');
     renderjson.set_show_by_default(false);
     renderjson.set_sort_objects(false);
     renderjson.set_max_string_length("none");
