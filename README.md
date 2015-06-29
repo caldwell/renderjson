@@ -100,6 +100,8 @@ you'd like:
 Copyright and License
 ---------------------
 
+License: [ISC](https://en.wikipedia.org/wiki/ISC_license)
+
 Copyright © 2013-2014 David Caldwell \<david@porkrind.org\>
 
 Permission to use, copy, modify, and/or distribute this software for any
