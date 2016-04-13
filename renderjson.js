@@ -72,7 +72,7 @@ var module;
         el.insertBefore(child, el.firstChild);
         return el;
     }
-    var isempty = function(obj) { for (var k in obj) if (obj.hasOwnProperty(k)) return false;
+    var isempty = function(obj) { for (var k in obj) if (Object.hasOwnProperty.call(obj, k)) return false;
                                   return true; }
     var text = function(txt) { return document.createTextNode(txt) };
     var div = function() { return document.createElement("div") };
