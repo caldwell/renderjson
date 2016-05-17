@@ -86,6 +86,19 @@ var module;
                                                    a.onclick = function(e) { callback(); if (e) e.stopPropagation(); return false; };
                                                    return a; };
 
+    var protoCopy = function (obj) {
+        var output = {};
+        for (var o = obj; o != null; o = Object.getPrototypeOf(o)) {
+            var oKeys = Object.getOwnPropertyNames(o);
+            for (var i=0; i < oKeys.length; i++) {
+                var key = oKeys[i];
+                if (typeof output[key] !== 'undefined') continue;
+                output[key] = obj[key];
+            }
+        }
+        return output;
+    }  
+
     function _renderjson(json, indent, dont_indent, show_level, max_string, sort_objects) {
         var my_indent = dont_indent ? "" : indent;
 
@@ -119,6 +132,9 @@ var module;
                 return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
 
+        if(renderjson.js_mode && typeof(json) == "function")
+            return themetext(null, my_indent, typeof(json), json.toString());
+
         if (typeof(json) != "object") // Strings, numbers and bools
             return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
@@ -138,6 +154,7 @@ var module;
         }
 
         // object
+        if(renderjson.js_mode) json = protoCopy(json);
         if (isempty(json))
             return themetext(null, my_indent, "object syntax", "{}");
 
@@ -165,6 +182,9 @@ var module;
         pre.className = "renderjson";
         return pre;
     }
+    
+    renderjson.set_js_mode = function(js_mode_bool) { renderjson.js_mode = js_mode_bool; return renderjson; };
+    
     renderjson.set_icons = function(show, hide) { renderjson.show = show;
                                                   renderjson.hide = hide;
                                                   return renderjson; };
@@ -181,9 +201,11 @@ var module;
     // Backwards compatiblity. Use set_show_to_level() for new code.
     renderjson.set_show_by_default = function(show) { renderjson.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
+                                                      
     renderjson.set_icons('⊕', '⊖');
     renderjson.set_show_by_default(false);
     renderjson.set_sort_objects(false);
     renderjson.set_max_string_length("none");
-    return renderjson;
+    renderjson.set_js_mode(false);
+    return renderjson;    
 })();
