@@ -132,8 +132,19 @@ var module;
                 return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
 
+        //function
         if(renderjson.js_mode && typeof(json) == "function")
-            return themetext(null, my_indent, typeof(json), json.toString());
+            return disclosure("function() {", "...", "}", "function", function() {
+                var fnParts = json.toString().match(/^([^{]*{)([\s\S]*)(})\s?$/)
+                var fnSig = fnParts && fnParts[1] ? fnParts[1] : "function() {";
+                var fnBody = fnParts && fnParts[2] ? fnParts[2] : "";
+                return append(
+                    span("function"),
+                    themetext("function syntax", fnSig, null, "\n"),
+                    themetext(null, indent, "function", fnBody),
+                    text("\n"),
+                    themetext(null, indent, "function syntax", "}"));
+            }); 
 
         if (typeof(json) != "object") // Strings, numbers and bools
             return themetext(null, my_indent, typeof(json), JSON.stringify(json));
