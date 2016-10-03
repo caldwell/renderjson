@@ -50,8 +50,14 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module;
-(module||{}).exports = renderjson = (function() {
+(function (renderjson) {
+    if (typeof module === "object") {
+        module.exports = renderjson;
+    }
+    if (typeof window !== "undefined") {
+        window.renderjson = renderjson;
+    }
+}) (function() {
     var themetext = function(/* [class, text]+ */) {
         var spans = [];
         while (arguments.length)
@@ -186,4 +192,4 @@ var module;
     renderjson.set_sort_objects(false);
     renderjson.set_max_string_length("none");
     return renderjson;
-})();
+}());
