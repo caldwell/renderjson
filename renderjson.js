@@ -50,7 +50,7 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module;
+var module, window;
 (module||{}).exports = (window||{}).renderjson = (function() {
     var themetext = function(/* [class, text]+ */) {
         var spans = [];
