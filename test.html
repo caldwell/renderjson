@@ -11,6 +11,8 @@
       .renderjson .boolean { color: blueviolet; }
       .renderjson .key    { color: darkblue; }
       .renderjson .keyword { color: blue; }
+      .renderjson .function { color: dimgray; }
+      .renderjson .function.syntax { color: deeppink; }      
       .renderjson .object.syntax { color: lightseagreen; }
       .renderjson .array.syntax  { color: orange; }
     </style>
@@ -23,15 +25,33 @@
 
     <script type="text/javascript" src="renderjson.js"></script>
     <script>
+      
+      function Other() {}
+      Other.prototype.blah = "hello";
+      
+      function Something() {
+        this.blah=123;
+        this.ha=456;
+      }
+      Something.prototype.ha="nope";
+      Something.prototype.yolo="yes, sir";
+      Something.prototype.nope = {a:1,b:2,c:3,d: new Object(), e: new Other()};
+      Something.prototype.fn = function() { console.log('hi'); };
+      
+      var myThing = new Something();
+      
+      
 document.getElementById("dest").appendChild(
   renderjson//.set_show_by_default(true)
             //.set_show_to_level(2)
             //.set_sort_objects(true)
             //.set_icons('+', '-')
-              .set_max_string_length(100)
+            .set_js_mode(true)
+            .set_max_string_length(100)
     ([
 // Examples from http://json.org/example.html
 {
+    something: myThing,
     "glossary": {
         "title": "example glossary",
 		"GlossDiv": {
