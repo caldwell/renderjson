@@ -36,6 +36,12 @@
 // renderjson.set_sort_objects(sort_bool)
 //   Sort objects by key (default: false)
 //
+// renderjson.set_replacer(replacer_function)
+//   Equivalent of JSON.stringify() `replacer` argument when it's a function
+//
+// renderjson.set_property_list(property_list)
+//   Equivalent of JSON.stringify() `replacer` argument when it's an array
+//
 // Theming
 // -------
 // The HTML output uses a number of classes so that you can theme it the way

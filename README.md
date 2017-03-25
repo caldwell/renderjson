@@ -72,6 +72,18 @@ renderjson.set_sort_objects(sort_bool);
 
 Sort objects by key (default: false)
 
+```javascript
+renderjson.set_replacer(replacer_function)
+renderjson.set_property_list(property_list)
+```
+
+These are the equivalent of JSON.stringify() `replacer` parameter.
+[Mozilla's documentation][1] has a good description of how this parameter
+works. See [test.html](blob/master/test.html) for an example of what these
+can do.
+
+[1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+
 These functions are chainable so you may do:
 
 ```javascript
