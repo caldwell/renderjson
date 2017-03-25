@@ -1,0 +1,8 @@
+title: Renderjson
+description: Render JSON into collapsible HTML
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-tactile
+
+gems:
+  - jekyll-mentions
