@@ -77,7 +77,7 @@ renderjson.set_replacer(replacer_function)
 renderjson.set_property_list(property_list)
 ```
 
-These are the equivalent of JSON.stringify() `replacer` parameter.
+These are the equivalent of the JSON.stringify() `replacer` parameter.
 [Mozilla's documentation][1] has a good description of how this parameter
 works. See [test.html](blob/master/test.html) for an example of what these
 can do.
