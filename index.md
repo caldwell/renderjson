@@ -15,7 +15,7 @@ that renders initially is a single disclosure icon.
 Live Example
 ------------
 
-<div id="test">
+<div id="test"></div>
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
 var example = {
@@ -46,7 +46,7 @@ document.getElementById("test").appendChild(renderjson(example));
 Here's the code:
 
 ```html
-<div id="test">
+<div id="test"></div>
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
 var example = {
