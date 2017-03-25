@@ -173,12 +173,12 @@ var module, window;
                                                   renderjson.options.hide = hide;
                                                   return renderjson; };
     renderjson.set_show_to_level = function(level) { renderjson.options.show_to_level = typeof level == "string" &&
-                                                                                level.toLowerCase() === "all" ? Number.MAX_VALUE
-                                                                                                              : level;
+                                                                                        level.toLowerCase() === "all" ? Number.MAX_VALUE
+                                                                                                                      : level;
                                                      return renderjson; };
     renderjson.set_max_string_length = function(length) { renderjson.options.max_string_length = typeof length == "string" &&
-                                                                                         length.toLowerCase() === "none" ? Number.MAX_VALUE
-                                                                                                                         : length;
+                                                                                                 length.toLowerCase() === "none" ? Number.MAX_VALUE
+                                                                                                                                 : length;
                                                           return renderjson; };
     renderjson.set_sort_objects = function(sort_bool) { renderjson.options.sort_objects = sort_bool;
                                                         return renderjson; };
