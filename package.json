@@ -1,6 +1,6 @@
 {
   "name": "renderjson",
-  "version": "1.3",
+  "version": "1.3.0",
   "description": "Render JSON into collapsible HTML",
   "main": "renderjson.js",
   "repository": {
