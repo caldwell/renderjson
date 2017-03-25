@@ -71,7 +71,7 @@ var example = {
         }
     }
 };
-    document.getElementById("test").appendChild(renderjson(example));
+document.getElementById("test").appendChild(renderjson(example));
 </script>
 ```
 
