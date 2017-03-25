@@ -20,7 +20,7 @@ Example
 -------
 
 ```html
-<div id="test">
+<div id="test"></div>
 <script type="text/javascript" src="renderjson.js"></script>
 <script>
     document.getElementById("test").appendChild(
