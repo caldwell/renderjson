@@ -21,6 +21,9 @@ Live Example
 var example = {
     "glossary": {
         "title": "example glossary",
+        "comprehensive": true,
+        "link": undefined,
+        "count": 1,
         "GlossDiv": {
             "title": "S",
             "GlossList": {
@@ -52,6 +55,9 @@ Here's the code:
 var example = {
     "glossary": {
         "title": "example glossary",
+        "comprehensive": true,
+        "link": undefined,
+        "count": 1,
         "GlossDiv": {
             "title": "S",
             "GlossList": {
