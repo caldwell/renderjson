@@ -1,0 +1,22 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Should match index.md example
+.renderjson a              { text-decoration: none; }
+.renderjson .disclosure    { color: crimson;
+                             font-size: 150%; }
+.renderjson .syntax        { color: grey; }
+.renderjson .string        { color: red; }
+.renderjson .number        { color: cyan; }
+.renderjson .boolean       { color: plum; }
+.renderjson .key           { color: lightblue; }
+.renderjson .keyword       { color: lightgoldenrodyellow; }
+.renderjson .object.syntax { color: lightseagreen; }
+.renderjson .array.syntax  { color: lightsalmon; }
+
+// Override some sucky github styles
+.highlight .nc { color: plum;
+                 font-weight: normal; }
+.highlight .nt { color: lightblue; }
