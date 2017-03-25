@@ -79,7 +79,7 @@ renderjson.set_property_list(property_list)
 
 These are the equivalent of the JSON.stringify() `replacer` parameter.
 [Mozilla's documentation][1] has a good description of how this parameter
-works. See [test.html](blob/master/test.html) for an example of what these
+works. See [test.html](test.html) for an example of what these
 can do.
 
 [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
