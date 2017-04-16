@@ -56,8 +56,17 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module, window;
-(module||{}).exports = (window||{}).renderjson = (function() {
+(function (root, factory) {
+  if(typeof define === "function" && define.amd) {
+    define(function() {
+      return (root.renderjson = factory());
+    });
+  } else if (typeof module === "object" && module.exports) {
+    module.exports = factory();
+  } else {
+    root.renderjson = factory();
+  }
+}(this, function() {
     var themetext = function(/* [class, text]+ */) {
         var spans = [];
         while (arguments.length)
@@ -203,4 +212,4 @@ var module, window;
     renderjson.set_replacer(void 0);
     renderjson.set_property_list(void 0);
     return renderjson;
-})();
+}));
