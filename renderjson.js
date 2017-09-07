@@ -112,7 +112,7 @@ var module, window, define, renderjson=(function() {
                    themetext(type+ " syntax", close));
 
             var el = append(span(), text(my_indent.slice(0,-1)), empty);
-            if (show_level > 0)
+            if (show_level > 0 && type != "string")
                 show();
             return el;
         };
