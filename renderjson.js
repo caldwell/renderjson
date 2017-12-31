@@ -39,6 +39,11 @@
 // renderjson.set_replacer(replacer_function)
 //   Equivalent of JSON.stringify() `replacer` argument when it's a function
 //
+// renderjson.set_collapse_msg(collapse_function)
+//   Accepts a function (len:number):string => {} where len is the length of the
+//   object collapsed.  Function should return the message displayed when a
+//   object is collapsed.  The default message is "X items"
+//
 // renderjson.set_property_list(property_list)
 //   Equivalent of JSON.stringify() `replacer` argument when it's an array
 //
@@ -131,7 +136,7 @@ var module, window, define, renderjson=(function() {
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-            return disclosure("[", " ... ", "]", "array", function () {
+            return disclosure("[", options.collapse_msg(json.length), "]", "array", function () {
                 var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
@@ -147,7 +152,7 @@ var module, window, define, renderjson=(function() {
         if (isempty(json, options.property_list))
             return themetext(null, my_indent, "object syntax", "{}");
 
-        return disclosure("{", "...", "}", "object", function () {
+        return disclosure("{", options.collapse_msg(Object.keys(json).length), "}", "object", function () {
             var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
             for (var k in json) var last = k;
             var keys = options.property_list || Object.keys(json);
@@ -189,6 +194,8 @@ var module, window, define, renderjson=(function() {
                                                         return renderjson; };
     renderjson.set_replacer = function(replacer) { renderjson.options.replacer = replacer;
                                                    return renderjson; };
+    renderjson.set_collapse_msg = function(collapse_msg) { renderjson.options.collapse_msg = collapse_msg;
+                                                           return renderjson; };
     renderjson.set_property_list = function(prop_list) { renderjson.options.property_list = prop_list;
                                                          return renderjson; };
     // Backwards compatiblity. Use set_show_to_level() for new code.
@@ -201,6 +208,7 @@ var module, window, define, renderjson=(function() {
     renderjson.set_max_string_length("none");
     renderjson.set_replacer(void 0);
     renderjson.set_property_list(void 0);
+    renderjson.set_collapse_msg(function(len) { return len + " item" + (len==1 ? "" : "s") })
     return renderjson;
 })();
 
