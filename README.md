@@ -84,6 +84,14 @@ can do.
 
 [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 
+```javascript
+renderjson.set_collapse_msg(collapse_function);
+```
+
+Accepts a function (len:number):string => {} where len is the length of the object collapsed.
+Function should return the message displayed when a object is collapsed.  
+The default msg is [X items]
+
 These functions are chainable so you may do:
 
 ```javascript
