@@ -168,7 +168,7 @@ var module, window, define, renderjson=(function() {
 
     var renderjson = function renderjson(json)
     {
-        var options = Object.assign({}, renderjson.options);
+        var options = new Object(renderjson.options);
         options.replacer = typeof(options.replacer) == "function" ? options.replacer : function(k,v) { return v; };
         var pre = append(document.createElement("pre"), _renderjson(json, "", false, options.show_to_level, options));
         pre.className = "renderjson";
