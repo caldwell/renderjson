@@ -148,6 +148,9 @@ var module, window, define, renderjson=(function() {
             });
         }
 
+        if(json instanceof HTMLElement)
+          return json;
+
         // object
         if (isempty(json, options.property_list))
             return themetext(null, my_indent, "object syntax", "{}");
