@@ -61,50 +61,64 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module, window, define, renderjson=(function() {
-    var themetext = function(/* [class, text]+ */) {
-        var spans = [];
-        while (arguments.length)
-            spans.push(append(span(Array.prototype.shift.call(arguments)),
-                              text(Array.prototype.shift.call(arguments))));
+interface Options{
+    /** show icon */
+    show:string
+    /** hide icon */
+    hide:string
+    replacer?: (key: string, value: any) => any
+    show_to_level: number
+    sort_objects: boolean
+    collapse_msg:Function
+    property_list:any[]
+    max_string_length:number
+}
+
+export {} // hack to get typescript to stop complaining about window being redeclared
+
+let module, window, define:Function, renderjson=(function() {
+    const themetext = function(...args: string[] /* [class, text]+ */) {
+        const spans = [];
+        while (args.length)
+            spans.push(append(span(Array.prototype.shift.call(args)),
+                              text(Array.prototype.shift.call(args))));
         return spans;
     };
-    var append = function(/* el, ... */) {
-        var el = Array.prototype.shift.call(arguments);
-        for (var a=0; a<arguments.length; a++)
-            if (arguments[a].constructor == Array)
-                append.apply(this, [el].concat(arguments[a]));
+    const append = function(...args:(Node|null|Node[])[] /* el, ... */) {
+        const el:Node|null = Array.prototype.shift.call(args);
+        for (let a=0; a<args.length; a++)
+            if (args[a].constructor == Array)
+                append.apply(this, [el].concat(args[a]));
             else
-                el.appendChild(arguments[a]);
+                el.appendChild(<Node>args[a]);
         return el;
     };
-    var prepend = function(el, child) {
-        el.insertBefore(child, el.firstChild);
+    const prepend = function<T extends Node>(el:Node, child:T) {
+        el.insertBefore<T>(child, el.firstChild);
         return el;
     }
-    var isempty = function(obj, pl) { var keys = pl || Object.keys(obj);
-                                      for (var i in keys) if (Object.hasOwnProperty.call(obj, keys[i])) return false;
+    const isempty = function(obj:{}, pl:any[]) { const keys = pl || Object.keys(obj);
+                                      for (const i in keys) if (Object.hasOwnProperty.call(obj, keys[i])) return false;
                                       return true; }
-    var text = function(txt) { return document.createTextNode(txt) };
-    var div = function() { return document.createElement("div") };
-    var span = function(classname) { var s = document.createElement("span");
+    const text = function(txt:string) { return document.createTextNode(txt) };
+    const span = function(classname?:string) { const s = document.createElement("span");
                                      if (classname) s.className = classname;
                                      return s; };
-    var A = function A(txt, classname, callback) { var a = document.createElement("a");
+    const A = function A(txt:string, classname:string, callback:Function) { const a = document.createElement("a");
                                                    if (classname) a.className = classname;
                                                    a.appendChild(text(txt));
                                                    a.href = '#';
                                                    a.onclick = function(e) { callback(); if (e) e.stopPropagation(); return false; };
                                                    return a; };
 
-    function _renderjson(json, indent, dont_indent, show_level, options) {
-        var my_indent = dont_indent ? "" : indent;
+    function _renderjson(json:any, indent:string, dont_indent:boolean, show_level:number, options:Options) {
+        const my_indent = dont_indent ? "" : indent;
 
-        var disclosure = function(open, placeholder, close, type, builder) {
-            var content;
-            var empty = span(type);
-            var show = function() { if (!content) append(empty.parentNode,
-                                                         content = prepend(builder(),
+        const disclosure = function(open:string, placeholder:string, close:string, type:string, builder:Function) {
+            let content:HTMLElement;
+            const empty = span(type);
+            const show = function() { if (!content) append(empty.parentNode,
+                                                         content = <HTMLElement>prepend(builder(),
                                                                            A(options.hide, "disclosure",
                                                                              function() { content.style.display="none";
                                                                                           empty.style.display="inline"; } )));
@@ -116,7 +130,7 @@ var module, window, define, renderjson=(function() {
                    A(placeholder, null, show),
                    themetext(type+ " syntax", close));
 
-            var el = append(span(), text(my_indent.slice(0,-1)), empty);
+            const el = append(span(), text(my_indent.slice(0,-1)), empty);
             if (show_level > 0 && type != "string")
                 show();
             return el;
@@ -136,11 +150,11 @@ var module, window, define, renderjson=(function() {
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-            return disclosure("[", options.collapse_msg(json.length), "]", "array", function () {
-                var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
-                for (var i=0; i<json.length; i++)
+            return disclosure("[", options.collapse_msg((<any[]>json).length), "]", "array", function () {
+                const as = append(span("array"), themetext("array syntax", "[", null, "\n"));
+                for (let i=0; i<(<any[]>json).length; i++)
                     append(as,
-                           _renderjson(options.replacer.call(json, i, json[i]), indent+"    ", false, show_level-1, options),
+                           _renderjson(options.replacer.call(json, i, (<any[]>json)[i]), indent+"    ", false, show_level-1, options),
                            i != json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
@@ -153,13 +167,13 @@ var module, window, define, renderjson=(function() {
             return themetext(null, my_indent, "object syntax", "{}");
 
         return disclosure("{", options.collapse_msg(Object.keys(json).length), "}", "object", function () {
-            var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
-            for (var k in json) var last = k;
-            var keys = options.property_list || Object.keys(json);
+            const os = append(span("object"), themetext("object syntax", "{", null, "\n"));
+            for (const k in json) var last = k;
+            let keys = options.property_list || Object.keys(json);
             if (options.sort_objects)
                 keys = keys.sort();
-            for (var i in keys) {
-                var k = keys[i];
+            for (const i in keys) {
+                const k = keys[i];
                 if (!(k in json)) continue;
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
                        _renderjson(options.replacer.call(json, k, json[k]), indent+"    ", true, show_level-1, options),
@@ -171,46 +185,48 @@ var module, window, define, renderjson=(function() {
         });
     }
 
-    var renderjson = function renderjson(json)
+    const renderjson = function renderjson(json:any)
     {
-        var options = new Object(renderjson.options);
-        options.replacer = typeof(options.replacer) == "function" ? options.replacer : function(k,v) { return v; };
-        var pre = append(document.createElement("pre"), _renderjson(json, "", false, options.show_to_level, options));
+        //@ts-ignore
+        const options:Options = new Object(renderjson.options);
+        options.replacer = typeof(options.replacer) == "function" ? options.replacer : function<T>(k:any,v:T) { return v; };
+        const pre = <Element>append(document.createElement("pre"), _renderjson(json, "", false, options.show_to_level, options));
         pre.className = "renderjson";
         return pre;
     }
-    renderjson.set_icons = function(show, hide) { renderjson.options.show = show;
+    renderjson.set_icons = function(show:string, hide:string) { renderjson.options.show = show;
                                                   renderjson.options.hide = hide;
                                                   return renderjson; };
-    renderjson.set_show_to_level = function(level) { renderjson.options.show_to_level = typeof level == "string" &&
+    renderjson.set_show_to_level = function(level:string|number) { renderjson.options.show_to_level = typeof level == "string" &&
                                                                                         level.toLowerCase() === "all" ? Number.MAX_VALUE
-                                                                                                                      : level;
+                                                                                                                      : <number>level;
                                                      return renderjson; };
-    renderjson.set_max_string_length = function(length) { renderjson.options.max_string_length = typeof length == "string" &&
+    renderjson.set_max_string_length = function(length:string|number) { renderjson.options.max_string_length = typeof length == "string" &&
                                                                                                  length.toLowerCase() === "none" ? Number.MAX_VALUE
-                                                                                                                                 : length;
+                                                                                                                                 : <number>length;
                                                           return renderjson; };
-    renderjson.set_sort_objects = function(sort_bool) { renderjson.options.sort_objects = sort_bool;
+    renderjson.set_sort_objects = function(sort:boolean) { renderjson.options.sort_objects = sort;
                                                         return renderjson; };
-    renderjson.set_replacer = function(replacer) { renderjson.options.replacer = replacer;
+    renderjson.set_replacer = function(replacer?:(key: string, value: any) => any) { renderjson.options.replacer = replacer;
                                                    return renderjson; };
-    renderjson.set_collapse_msg = function(collapse_msg) { renderjson.options.collapse_msg = collapse_msg;
+    renderjson.set_collapse_msg = function(collapse_msg:(len:number)=>string) { renderjson.options.collapse_msg = collapse_msg;
                                                            return renderjson; };
-    renderjson.set_property_list = function(prop_list) { renderjson.options.property_list = prop_list;
+    renderjson.set_property_list = function(prop_list?:any[]) { renderjson.options.property_list = prop_list;
                                                          return renderjson; };
     // Backwards compatiblity. Use set_show_to_level() for new code.
-    renderjson.set_show_by_default = function(show) { renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
+    renderjson.set_show_by_default = function(show:boolean) { renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
-    renderjson.options = {};
+    renderjson.options = <Options>{};
     renderjson.set_icons('⊕', '⊖');
     renderjson.set_show_by_default(false);
     renderjson.set_sort_objects(false);
     renderjson.set_max_string_length("none");
     renderjson.set_replacer(void 0);
     renderjson.set_property_list(void 0);
-    renderjson.set_collapse_msg(function(len) { return len + " item" + (len==1 ? "" : "s") })
+    renderjson.set_collapse_msg(function(len:number) { return len + " item" + (len==1 ? "" : "s") })
     return renderjson;
 })();
 
 if (define) define({renderjson:renderjson})
+// @ts-ignore
 else (module||{}).exports = (window||{}).renderjson = renderjson;
