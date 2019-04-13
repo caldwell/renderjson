@@ -20,32 +20,7 @@
 //
 // Options
 // -------
-// renderjson.set_icons("+", "-")
-//   This Allows you to override the disclosure icons.
-//
-// renderjson.set_show_to_level(level)
-//   Pass the number of levels to expand when rendering. The default is 0, which
-//   starts with everything collapsed. As a special case, if level is the string
-//   "all" then it will start with everything expanded.
-//
-// renderjson.set_max_string_length(length)
-//   Strings will be truncated and made expandable if they are longer than
-//   `length`. As a special case, if `length` is the string "none" then
-//   there will be no truncation. The default is "none".
-//
-// renderjson.set_sort_objects(sort_bool)
-//   Sort objects by key (default: false)
-//
-// renderjson.set_replacer(replacer_function)
-//   Equivalent of JSON.stringify() `replacer` argument when it's a function
-//
-// renderjson.set_collapse_msg(collapse_function)
-//   Accepts a function (len:number):string => {} where len is the length of the
-//   object collapsed.  Function should return the message displayed when a
-//   object is collapsed.  The default message is "X items"
-//
-// renderjson.set_property_list(property_list)
-//   Equivalent of JSON.stringify() `replacer` argument when it's an array
+// see function documentation
 //
 // Theming
 // -------
@@ -194,33 +169,67 @@ let module, window, define:Function, renderjson=(function() {
         pre.className = "renderjson";
         return pre;
     }
+
+    /**
+     * This allows you to override the disclosure icons.
+     */
     renderjson.set_icons = function(show:string, hide:string) { 
         renderjson.options.show = show;
         renderjson.options.hide = hide;
         return renderjson;
     };
+
+    /**
+     * Pass the number of levels to expand when rendering. The default is 0, which
+     * starts with everything collapsed. As a special case, if level is the string
+     * "all" then it will start with everything expanded.
+     */
     renderjson.set_show_to_level = function(level:string|number) { 
         renderjson.options.show_to_level = typeof level == "string" &&
             level.toLowerCase() === "all" ? Number.MAX_VALUE : <number>level;
         return renderjson;
     };
+
+    /**
+     * Strings will be truncated and made expandable if they are longer than
+     * `length`. As a special case, if `length` is the string "none" then
+     * there will be no truncation. The default is "none".
+     */
     renderjson.set_max_string_length = function(length:string|number) {
         renderjson.options.max_string_length = typeof length == "string" &&
              length.toLowerCase() === "none" ? Number.MAX_VALUE : <number>length;
         return renderjson;
     };
+
+    /**
+     * Sort objects by key (default: false)
+     */
     renderjson.set_sort_objects = function(sort:boolean) {
         renderjson.options.sort_objects = sort;
         return renderjson;
     };
+
+    /**
+     * Equivalent of JSON.stringify() `replacer` argument when it's a function
+     */
     renderjson.set_replacer = function(replacer?:(key: string, value: any) => any) {
         renderjson.options.replacer = replacer;
         return renderjson;
     };
+
+    /**
+     * Accepts a function (len:number):string => {} where len is the length of the
+     * object collapsed.  Function should return the message displayed when a
+     * object is collapsed.  The default message is "X items"
+     */
     renderjson.set_collapse_msg = function(collapse_msg:(len:number)=>string) {
         renderjson.options.collapse_msg = collapse_msg;
         return renderjson;
     };
+
+    /**
+     * Equivalent of JSON.stringify() `replacer` argument when it's an array
+     */
     renderjson.set_property_list = function(prop_list?:any[]) {
         renderjson.options.property_list = prop_list;
         return renderjson;
