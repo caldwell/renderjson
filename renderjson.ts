@@ -194,28 +194,42 @@ let module, window, define:Function, renderjson=(function() {
         pre.className = "renderjson";
         return pre;
     }
-    renderjson.set_icons = function(show:string, hide:string) { renderjson.options.show = show;
-                                                  renderjson.options.hide = hide;
-                                                  return renderjson; };
-    renderjson.set_show_to_level = function(level:string|number) { renderjson.options.show_to_level = typeof level == "string" &&
-                                                                                        level.toLowerCase() === "all" ? Number.MAX_VALUE
-                                                                                                                      : <number>level;
-                                                     return renderjson; };
-    renderjson.set_max_string_length = function(length:string|number) { renderjson.options.max_string_length = typeof length == "string" &&
-                                                                                                 length.toLowerCase() === "none" ? Number.MAX_VALUE
-                                                                                                                                 : <number>length;
-                                                          return renderjson; };
-    renderjson.set_sort_objects = function(sort:boolean) { renderjson.options.sort_objects = sort;
-                                                        return renderjson; };
-    renderjson.set_replacer = function(replacer?:(key: string, value: any) => any) { renderjson.options.replacer = replacer;
-                                                   return renderjson; };
-    renderjson.set_collapse_msg = function(collapse_msg:(len:number)=>string) { renderjson.options.collapse_msg = collapse_msg;
-                                                           return renderjson; };
-    renderjson.set_property_list = function(prop_list?:any[]) { renderjson.options.property_list = prop_list;
-                                                         return renderjson; };
+    renderjson.set_icons = function(show:string, hide:string) { 
+        renderjson.options.show = show;
+        renderjson.options.hide = hide;
+        return renderjson;
+    };
+    renderjson.set_show_to_level = function(level:string|number) { 
+        renderjson.options.show_to_level = typeof level == "string" &&
+            level.toLowerCase() === "all" ? Number.MAX_VALUE : <number>level;
+        return renderjson;
+    };
+    renderjson.set_max_string_length = function(length:string|number) {
+        renderjson.options.max_string_length = typeof length == "string" &&
+             length.toLowerCase() === "none" ? Number.MAX_VALUE : <number>length;
+        return renderjson;
+    };
+    renderjson.set_sort_objects = function(sort:boolean) {
+        renderjson.options.sort_objects = sort;
+        return renderjson;
+    };
+    renderjson.set_replacer = function(replacer?:(key: string, value: any) => any) {
+        renderjson.options.replacer = replacer;
+        return renderjson;
+    };
+    renderjson.set_collapse_msg = function(collapse_msg:(len:number)=>string) {
+        renderjson.options.collapse_msg = collapse_msg;
+        return renderjson;
+    };
+    renderjson.set_property_list = function(prop_list?:any[]) {
+        renderjson.options.property_list = prop_list;
+        return renderjson;
+    };
     // Backwards compatiblity. Use set_show_to_level() for new code.
-    renderjson.set_show_by_default = function(show:boolean) { renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
-                                                      return renderjson; };
+    renderjson.set_show_by_default = function(show:boolean) {
+        renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
+        return renderjson;
+    };
     renderjson.options = <Options>{};
     renderjson.set_icons('⊕', '⊖');
     renderjson.set_show_by_default(false);
