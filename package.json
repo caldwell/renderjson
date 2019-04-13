@@ -29,7 +29,7 @@
   "scripts": {
     "compile": "tsc -watch -p ./",
     "compileOnce": "tsc",
-    "declaration": "tsc --target es5 --declaration renderjson.ts"
+    "declaration": "tsc --declaration renderjson.ts"
   },
   "homepage": "http://caldwell.github.io/renderjson"
 }
