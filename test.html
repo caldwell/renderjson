@@ -21,6 +21,15 @@
 
     <div id="dest"></div>
 
+    <h2>Json schema</h2>
+
+    <div id="schema"></div>
+
+    <h2>Microsoft id/ref</h2>
+
+    <div id="idref"></div>
+
+    <script type="text/javascript" src="resolvejson.js"></script>
     <script type="text/javascript" src="renderjson.js"></script>
     <script>
 document.getElementById("dest").appendChild(
@@ -245,6 +254,151 @@ renderjson.set_property_list(void 0)
     else return v;
 });
 document.getElementById("dest").appendChild(renderjson({ window: window, document: document, bad_nums:[1/0, parseInt("abcd")], "#dest":document.getElementById("dest") }));
+document.getElementById("idref").appendChild(
+        renderjson(
+            resolvejson("$id", "$ref",
+                [
+                    {
+                        "$id":"1",
+                        "Name":"Alice",
+                        "Sibling":{
+                            "$id":"2",
+                            "Name":"Bob",
+                            "Sibling":{
+                                "$ref":"1"
+                            }
+                        }
+                    },
+                    {
+                        "$ref":"2"
+                    }
+                ]
+            )
+        )
+    )
+
+document.getElementById("schema").appendChild(
+        renderjson(
+            resolvejson("id", "$ref",
+                {
+                    "type": "object",
+                    "id": "urn:jsonschema:rmistry:schema:test:SimpleSubClassRoot",
+                    "properties": {
+                        "action": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AppAction",
+                            "required": true,
+                            "oneOf": [{
+                                "$ref": "urn:jsonschema:rmistry:schema:test:AddActivityAppAction"
+                            }, {
+                                "$ref": "urn:jsonschema:rmistry:schema:test:AddNoteAppAction"
+                            }, {
+                                "$ref": "urn:jsonschema:rmistry:schema:test:AppAction"
+                            }]
+                        }
+                    },
+                    "definitions": {
+                        "urn:jsonschema:rmistry:schema:test:AssignTo": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AssignTo",
+                            "required": true,
+                            "oneOf": [{
+                                "$ref": "urn:jsonschema:rmistry:schema:test:AssignToDefault"
+                            }, {
+                                "$ref": "urn:jsonschema:rmistry:schema:test:AssignToGroup"
+                            }]
+                        },
+                        "urn:jsonschema:rmistry:schema:test:AssignToDefault": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AssignToDefault",
+                            "additionalProperties": false,
+                            "properties": {
+                                "properties": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                },
+                                "target": {
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        },
+                        "urn:jsonschema:rmistry:schema:test:AssignToGroup": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AssignToGroup",
+                            "additionalProperties": false,
+                            "properties": {
+                                "groupName": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "target": {
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        },
+                        "urn:jsonschema:rmistry:schema:test:AddActivityAppAction": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AddActivityAppAction",
+                            "additionalProperties": false,
+                            "properties": {
+                                "action": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "addToParent": {
+                                    "type": "boolean"
+                                },
+                                "assignTo": {
+                                    "type": "object",
+                                    "$ref": "urn:jsonschema:rmistry:schema:test:AssignTo",
+                                    "required": true
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "urn:jsonschema:rmistry:schema:test:AddNoteAppAction": {
+                            "type": "object",
+                            "id": "urn:jsonschema:rmistry:schema:test:AddNoteAppAction",
+                            "additionalProperties": false,
+                            "properties": {
+                                "action": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "addToParent": {
+                                    "type": "boolean"
+                                },
+                                "markConfidential": {
+                                    "type": "boolean",
+                                    "required": true
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                },
+                                "topic": {
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+        )
+    )
+
     </script>
   </body>
 </html>
