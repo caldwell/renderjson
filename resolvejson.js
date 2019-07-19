@@ -32,7 +32,20 @@ var resolvejson = (function () {
                 let ref = obj[refProp];
                 //we will always have the ref stored in the map
                 if (ref in byid) {
-                    return byid[ref];
+                    var wrk = byid[ref]
+                    if (Object.keys(obj).length == 1) {
+                        return wrk;
+                    }
+                    var rtn = {}
+                    for (var i in wrk) {
+                        rtn[i] = wrk[i]
+                    }
+                    for (var i in obj) {
+                        if (i != refProp && rtn[i] !== null) {
+                            rtn[i] = obj[i]
+                        }
+                    }
+                    return rtn;
                 } else {
                     return obj
                 }
