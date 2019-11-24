@@ -51,7 +51,7 @@ interface Options{
 
 export {} // hack to get typescript to stop complaining about window being redeclared
 
-let module, window, define:Function, renderjson=(function() {
+var module, window, define:Function, renderjson=(function() {
     const themetext = function(...args: string[] /* [class, text]+ */) {
         const spans = [];
         while (args.length)
