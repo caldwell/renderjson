@@ -250,6 +250,8 @@ var module, window, define:Function, renderjson=(function() {
     return renderjson;
 })();
 
+// https://requirejs.org/docs/api.html#define
+// define in order to support AMD
 if (define) define({renderjson:renderjson})
 // @ts-ignore
 else (module||{}).exports = (window||{}).renderjson = renderjson;
