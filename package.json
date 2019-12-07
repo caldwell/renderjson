@@ -33,7 +33,8 @@
     "compile": "tsc -watch -p ./",
     "compileOnce": "tsc",
     "declaration": "tsc --declaration renderjson.ts",
-    "test": "jest"
+    "test": "jest",
+    "prePublish": "npm run compileOnce && npm run test"
   },
   "homepage": "http://caldwell.github.io/renderjson"
 }
