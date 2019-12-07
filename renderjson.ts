@@ -36,7 +36,7 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-interface Options{
+export interface Options{
     /** show icon */
     show:string
     /** hide icon */
@@ -255,3 +255,5 @@ var module, window, define:Function, renderjson=(function() {
 if (define) define({renderjson:renderjson})
 // @ts-ignore
 else (module||{}).exports = (window||{}).renderjson = renderjson;
+
+export default renderjson;
