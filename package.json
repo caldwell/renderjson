@@ -1,6 +1,6 @@
 {
   "name": "renderjson",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Render JSON into collapsible HTML",
   "main": "renderjson.js",
   "repository": {
@@ -12,9 +12,29 @@
     "html"
   ],
   "author": "David Caldwell <david@porkrind.org>",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "*.js.map",
+    "CHANGELOG.md",
+    "README.md"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/caldwell/renderjson/issues"
+  },
+  "scripts": {
+    "compile": "tsc -watch -p ./",
+    "compileOnce": "tsc",
+    "declaration": "tsc --declaration renderjson.ts",
+    "test": "jest",
+    "prePublish": "npm run compileOnce && npm run test"
   },
   "homepage": "http://caldwell.github.io/renderjson"
 }
