@@ -97,17 +97,26 @@ var module, window, define, renderjson=(function() {
                                                    a.onclick = function(e) { callback(); if (e) e.stopPropagation(); return false; };
                                                    return a; };
 
+    var walkDOM = function(node, func){
+      func(node);
+      node = node.firstChild;
+      while(node) {
+          walkDOM(node,func);
+          node = node.nextSibling;
+      }
+    }
+
     function _renderjson(json, indent, dont_indent, show_level, options) {
         var my_indent = dont_indent ? "" : indent;
 
         var disclosure = function(open, placeholder, close, type, builder) {
             var content;
             var empty = span(type);
+            var hide = function() { content.style.display="none";
+                                    empty.style.display="inline"; }
             var show = function() { if (!content) append(empty.parentNode,
                                                          content = prepend(builder(),
-                                                                           A(options.hide, "disclosure",
-                                                                             function() { content.style.display="none";
-                                                                                          empty.style.display="inline"; } )));
+                                                                           A(options.hide, "disclosure", hide)));
                                     content.style.display="inline";
                                     empty.style.display="none"; };
             append(empty,
@@ -119,6 +128,8 @@ var module, window, define, renderjson=(function() {
             var el = append(span(), text(my_indent.slice(0,-1)), empty);
             if (show_level > 0 && type != "string")
                 show();
+            el.show = show;
+            el.hide = hide;
             return el;
         };
 
@@ -177,6 +188,19 @@ var module, window, define, renderjson=(function() {
         options.replacer = typeof(options.replacer) == "function" ? options.replacer : function(k,v) { return v; };
         var pre = append(document.createElement("pre"), _renderjson(json, "", false, options.show_to_level, options));
         pre.className = "renderjson";
+
+        pre.show_all = function(){
+          walkDOM(pre, function(node){
+            if(node.show) node.show()
+          })
+        }
+
+        pre.hide_all = function(){
+          walkDOM(pre, function(node){
+            if(node.hide) node.hide()
+          })
+        }
+
         return pre;
     }
     renderjson.set_icons = function(show, hide) { renderjson.options.show = show;
