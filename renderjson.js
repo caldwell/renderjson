@@ -125,13 +125,15 @@ var module, window, define, renderjson=(function() {
         if (json === null) return themetext(null, my_indent, "keyword", "null");
         if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
-        if (typeof(json) == "string" && json.length > options.max_string_length)
+        var jsonType = typeof(json);
+        if (jsonType == "string" && json.length > options.max_string_length)
             return disclosure('"', json.substr(0,options.max_string_length)+" ...", '"', "string", function () {
                 return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
 
-        if (typeof(json) != "object" || [Number, String, Boolean, Date].indexOf(json.constructor) >= 0) // Strings, numbers and bools
-            return themetext(null, my_indent, typeof(json), JSON.stringify(json));
+        if (jsonType === "bigint") return themetext(null, my_indent, "number", json);
+        if (jsonType != "object" || [Number, String, Boolean, Date].indexOf(json.constructor) >= 0) // Strings, numbers and bools
+            return themetext(null, my_indent, jsonType, JSON.stringify(json));
 
         if (json.constructor == Array) {
             if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
