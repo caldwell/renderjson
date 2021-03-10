@@ -214,3 +214,6 @@ var module, window, define, renderjson=(function() {
 
 if (define) define({renderjson:renderjson})
 else (module||{}).exports = (window||{}).renderjson = renderjson;
+
+// Export ES6 compatible
+export default renderjson;
