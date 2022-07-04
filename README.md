@@ -66,6 +66,13 @@ Strings will be truncated and made expandable if they are longer than
 `length`. As a special case, if `length` is the string `"none"` then there
 will be no truncation. The default is `"none"`.
 
+
+```javascript
+renderjson.set_key_surronud_symbol(symbol)
+```
+
+Sets symbol that will surrond keys of JSON (default: ")
+
 ```javascript
 renderjson.set_sort_objects(sort_bool);
 ```

@@ -47,6 +47,9 @@
 // renderjson.set_property_list(property_list)
 //   Equivalent of JSON.stringify() `replacer` argument when it's an array
 //
+// renderjson.set_key_surronud_symbol(symbol)
+//   Sets symbol that will surrond keys of JSON (default: ")
+//
 // Theming
 // -------
 // The HTML output uses a number of classes so that you can theme it the way
@@ -161,7 +164,7 @@ var module, window, define, renderjson=(function() {
             for (var i in keys) {
                 var k = keys[i];
                 if (!(k in json)) continue;
-                append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
+                append(os, themetext(null, indent+"    ", "key", options.key_surrond_symbol+k+options.key_surrond_symbol, "object syntax", ': '),
                        _renderjson(options.replacer.call(json, k, json[k]), indent+"    ", true, show_level-1, options),
                        k != last ? themetext("syntax", ",") : [],
                        text("\n"));
@@ -198,6 +201,8 @@ var module, window, define, renderjson=(function() {
                                                            return renderjson; };
     renderjson.set_property_list = function(prop_list) { renderjson.options.property_list = prop_list;
                                                          return renderjson; };
+    renderjson.set_key_surronud_symbol = function(symbol) { renderjson.options.key_surrond_symbol = symbol;
+                                                         return renderjson; };
     // Backwards compatiblity. Use set_show_to_level() for new code.
     renderjson.set_show_by_default = function(show) { renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
@@ -209,6 +214,7 @@ var module, window, define, renderjson=(function() {
     renderjson.set_replacer(void 0);
     renderjson.set_property_list(void 0);
     renderjson.set_collapse_msg(function(len) { return len + " item" + (len==1 ? "" : "s") })
+    renderjson.set_key_surronud_symbol('"')
     return renderjson;
 })();
 
