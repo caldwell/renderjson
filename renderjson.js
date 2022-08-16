@@ -198,7 +198,7 @@ var module, window, define, renderjson=(function() {
                                                            return renderjson; };
     renderjson.set_property_list = function(prop_list) { renderjson.options.property_list = prop_list;
                                                          return renderjson; };
-    // Backwards compatiblity. Use set_show_to_level() for new code.
+    // Backwards compatibility. Use set_show_to_level() for new code.
     renderjson.set_show_by_default = function(show) { renderjson.options.show_to_level = show ? Number.MAX_VALUE : 0;
                                                       return renderjson; };
     renderjson.options = {};
