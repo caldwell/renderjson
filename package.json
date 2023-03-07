@@ -2,11 +2,12 @@
   "name": "renderjson",
   "version": "1.4.0",
   "description": "Render JSON into collapsible HTML",
-  "main": "renderjson.js",
+  "exports": "./renderjson.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caldwell/renderjson.git"
   },
+  "type": "module",
   "keywords": [
     "json",
     "html"

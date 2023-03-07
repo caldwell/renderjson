@@ -61,7 +61,7 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
-var module, window, define, renderjson=(function() {
+export default (function() {
     var themetext = function(/* [class, text]+ */) {
         var spans = [];
         while (arguments.length)
@@ -211,6 +211,3 @@ var module, window, define, renderjson=(function() {
     renderjson.set_collapse_msg(function(len) { return len + " item" + (len==1 ? "" : "s") })
     return renderjson;
 })();
-
-if (define) define({renderjson:renderjson})
-else (module||{}).exports = (window||{}).renderjson = renderjson;
