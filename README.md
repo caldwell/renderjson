@@ -22,7 +22,7 @@ Example
 ```html
 <div id="test"></div>
 <script type="module">
-    import renderjson from "./renderjson.js"
+    import renderjson from "./renderjson.mjs"
     document.getElementById("test").appendChild(
         renderjson({ hello: [1,2,3,4], there: { a:1, b:2, c:["hello", null] } })
     );
